@@ -37,11 +37,12 @@ public class HeroStateMachine : MonoBehaviour
 
     private bool alive = true;
     //heroPanel
-    private HeroPanelStats stats;
-    public GameObject HeroPanel;
     
-	
-	void Start ()
+    public GameObject HeroPanel;
+    private HeroPanelStats stats;
+
+
+    void Start ()
     {
         //create panel and fill in info
         CreateHeroPanel();
