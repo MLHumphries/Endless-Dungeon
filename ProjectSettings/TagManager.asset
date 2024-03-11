@@ -9,6 +9,7 @@ TagManager:
   - DeadHero
   - DeadEnemy
   - Stats
+  - Name
   layers:
   - Default
   - TransparentFX

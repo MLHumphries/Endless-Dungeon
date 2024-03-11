@@ -38,8 +38,10 @@ public class HeroStateMachine : MonoBehaviour
     private bool alive = true;
     //heroPanel
     
-    public GameObject HeroPanel;
-    private HeroPanelStats stats;
+    public GameObject HeroPanelName;
+    public GameObject HeroPanelStats;
+    private HeroPanelName heroName;
+    private HeroPanelStats heroStats;
 
 
     void Start ()
@@ -196,18 +198,23 @@ public class HeroStateMachine : MonoBehaviour
 
     void CreateHeroPanel()
     {
-        HeroPanel = GameObject.FindGameObjectWithTag("Stats");
-        stats = HeroPanel.GetComponent<HeroPanelStats>();
-        stats.heroName.text = hero.theName;
-        stats.heroHP.text = hero.curHP + "/" + hero.baseHP;
-        stats.heroMP.text = hero.curMP + "/" + hero.baseMP;
-        ProgressBar = stats.progressBar;
+        HeroPanelName = GameObject.FindGameObjectWithTag("Name");
+        HeroPanelStats = GameObject.FindGameObjectWithTag("Stats");
+
+        heroName = HeroPanelName.GetComponent<HeroPanelName>();
+        heroStats = HeroPanelStats.GetComponent<HeroPanelStats>();
+        
+
+        heroName.heroName.text = hero.theName;
+        heroStats.heroHP.text = hero.curHP + "/" + hero.baseHP;
+        heroStats.heroMP.text = hero.curMP + "/" + hero.baseMP;
+        ProgressBar = heroStats.progressBar;
     }
 
     void UpdateHeroPanel()
     {
-        stats.heroHP.text = hero.curHP + "/" + hero.baseHP;
-        stats.heroMP.text = hero.curMP + "/" + hero.baseMP;
+        heroStats.heroHP.text = hero.curHP + "/" + hero.baseHP;
+        heroStats.heroMP.text = hero.curMP + "/" + hero.baseMP;
     }
 }
 
