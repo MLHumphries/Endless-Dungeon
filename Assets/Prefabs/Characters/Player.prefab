@@ -110,6 +110,8 @@ MonoBehaviour:
     theName: Hero
     baseHP: 10
     curHP: 10
+    baseMP: 100
+    curMP: 100
     baseATK: 0
     curATK: 0
     baseDEF: 0
@@ -127,7 +129,8 @@ MonoBehaviour:
   enemyToAttack: {fileID: 0}
   playerUIText: {fileID: 0}
   currentState: 0
-  HeroPanel: {fileID: 0}
+  HeroPanelName: {fileID: 0}
+  HeroPanelStats: {fileID: 0}
 --- !u!1 &1863512710767340
 GameObject:
   m_ObjectHideFlags: 0
