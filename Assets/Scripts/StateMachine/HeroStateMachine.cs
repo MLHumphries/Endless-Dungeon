@@ -198,8 +198,8 @@ public class HeroStateMachine : MonoBehaviour
 
     void CreateHeroPanel()
     {
-        HeroPanelName = GameObject.FindGameObjectWithTag("Name");
-        HeroPanelStats = GameObject.FindGameObjectWithTag("Stats");
+        //HeroPanelName = GameObject.FindGameObjectWithTag("Name");
+        //HeroPanelStats = GameObject.FindGameObjectWithTag("Stats");
 
         heroName = HeroPanelName.GetComponent<HeroPanelName>();
         heroStats = HeroPanelStats.GetComponent<HeroPanelStats>();
