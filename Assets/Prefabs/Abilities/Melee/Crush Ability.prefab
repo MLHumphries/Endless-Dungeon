@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackName: Crush
-  attackDamage: 0
+  attackDamage: 15
   attackCost: 0

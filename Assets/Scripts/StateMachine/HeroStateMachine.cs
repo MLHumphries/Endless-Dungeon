@@ -167,6 +167,11 @@ public class HeroStateMachine : MonoBehaviour
         cur_Cooldown = 0f;
         currentState = TurnState.Processing;
     }
+    private IEnumerator TextDelay()
+    {
+        yield return new WaitForSeconds(0.75f);
+    }
+
     private bool MoveTowardsEnemy(Vector3 target)
     {
         return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
@@ -192,6 +197,9 @@ public class HeroStateMachine : MonoBehaviour
         float calc_damage = hero.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
         enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
         playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
+        hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
+        TextDelay();
+        UpdateHeroPanel();
         //Debug.Log(this.gameObject.name + " does " + calc_damage + " damage");
         //Debug.Log(this.gameObject.name + " has choosen " + .choosenAttack.attackName + " and does " + myAttack.choosenAttack.attackDamage + " dammage");
     }

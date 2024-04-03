@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackName: Slash
-  attackDamage: 0
+  attackDamage: 10
   attackCost: 0
