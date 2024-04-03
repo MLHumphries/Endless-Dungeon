@@ -691,7 +691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037298249787104, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4457225060211468, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_LocalPosition.x
@@ -788,7 +788,7 @@ PrefabInstance:
         type: 3}
       propertyPath: HeroPanelStats
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2070511246}
     - target: {fileID: 114015842548285284, guid: 2734c50b899b1034e8d6bebe19382128,
         type: 3}
       propertyPath: hero.theName
@@ -1833,6 +1833,21 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0.099999905
       objectReference: {fileID: 0}
+    - target: {fileID: 8160426708369074564, guid: 691cde4eccce6fc40b95a2516ed2110d,
+        type: 3}
+      propertyPath: heroHP
+      value: 
+      objectReference: {fileID: 2070511245}
+    - target: {fileID: 8160426708369074564, guid: 691cde4eccce6fc40b95a2516ed2110d,
+        type: 3}
+      propertyPath: heroMP
+      value: 
+      objectReference: {fileID: 2070511244}
+    - target: {fileID: 8160426708369074564, guid: 691cde4eccce6fc40b95a2516ed2110d,
+        type: 3}
+      propertyPath: progressBar
+      value: 
+      objectReference: {fileID: 2070511243}
     - target: {fileID: 4206514538603895574, guid: 691cde4eccce6fc40b95a2516ed2110d,
         type: 3}
       propertyPath: m_AnchoredPosition.x

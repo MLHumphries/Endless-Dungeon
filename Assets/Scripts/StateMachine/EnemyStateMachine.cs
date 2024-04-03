@@ -120,7 +120,7 @@ public class EnemyStateMachine : MonoBehaviour
         actionStarted = true;
 
         //animate enemy to hero attack
-        Vector3 heroPosition = new Vector3(HeroToAttack.transform.position.x + 1.5f, HeroToAttack.transform.position.y);
+        Vector3 heroPosition = new Vector3(HeroToAttack.transform.position.x + 1.5f, HeroToAttack.transform.position.y, HeroToAttack.transform.position.z);
         while (MoveTowardsEnemy(heroPosition))
         {
             yield return null;

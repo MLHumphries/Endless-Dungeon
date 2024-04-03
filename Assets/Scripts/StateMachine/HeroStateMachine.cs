@@ -138,8 +138,8 @@ public class HeroStateMachine : MonoBehaviour
         }
         actionStarted = true;
 
-        //animate enemy to hero attack
-        Vector3 enemyPosition = new Vector3(enemyToAttack.transform.position.x - 1.5f, enemyToAttack.transform.position.y);
+        //animate enemy to hero attack (subtract 1.5f so the sprites don't overlap one another)
+        Vector3 enemyPosition = new Vector3(enemyToAttack.transform.position.x - 1.5f, enemyToAttack.transform.position.y, enemyToAttack.transform.position.z);
         while (MoveTowardsEnemy(enemyPosition))
         {
             yield return null;
