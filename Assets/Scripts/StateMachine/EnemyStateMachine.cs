@@ -36,7 +36,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     void Start ()
     {
-        enemyHealthUI.text = "HP: " + enemy.curHP.ToString();
+        //enemyHealthUI.text = "HP: " + enemy.curHP.ToString();
         currentState = TurnState.Processing;
         selector.SetActive(false);
         BSM = GameObject.Find("GameManager").GetComponent<BattleStateMachine>();
@@ -99,7 +99,7 @@ public class EnemyStateMachine : MonoBehaviour
     void ChooseAction()
     {
         HandleTurns myAttack = new HandleTurns();
-        myAttack.attackerName = enemy.theName;
+        myAttack.attackerName = enemy.name;
         myAttack.type = "Enemy";
         myAttack.attackGameObject = this.gameObject;
         myAttack.attackerTarget = BSM.HeroInGame[Random.Range(0, BSM.HeroInGame.Count)];
@@ -169,7 +169,7 @@ public class EnemyStateMachine : MonoBehaviour
             enemy.curHP = 0;
             currentState = TurnState.Dead;
         }
-        UpdateEnemyHealth();
+        //UpdateEnemyHealth();
     }
 
     void UpdateEnemyHealth()

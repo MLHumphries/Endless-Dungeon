@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseClass
 {
-    public string theName;
+    public string name;
 
     public float baseHP;
     public float curHP;

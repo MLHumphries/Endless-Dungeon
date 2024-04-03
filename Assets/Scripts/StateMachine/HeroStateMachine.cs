@@ -191,7 +191,7 @@ public class HeroStateMachine : MonoBehaviour
         HandleTurns heroAttack = new HandleTurns();
         float calc_damage = hero.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
         enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
-        playerUIText.text = this.gameObject.name.ToString() + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
+        playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
         //Debug.Log(this.gameObject.name + " does " + calc_damage + " damage");
         //Debug.Log(this.gameObject.name + " has choosen " + .choosenAttack.attackName + " and does " + myAttack.choosenAttack.attackDamage + " dammage");
     }
@@ -205,7 +205,7 @@ public class HeroStateMachine : MonoBehaviour
         heroStats = HeroPanelStats.GetComponent<HeroPanelStats>();
         
 
-        heroName.heroName.text = hero.theName;
+        heroName.heroName.text = hero.name;
         heroStats.heroHP.text = hero.curHP + "/" + hero.baseHP;
         heroStats.heroMP.text = hero.curMP + "/" + hero.baseMP;
         ProgressBar = heroStats.progressBar;
