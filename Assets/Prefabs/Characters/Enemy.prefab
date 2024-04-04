@@ -104,8 +104,8 @@ GameObject:
   - component: {fileID: 33354081301798718}
   - component: {fileID: 23732520738883308}
   - component: {fileID: 65490332228112362}
-  - component: {fileID: 114270216860276012}
   - component: {fileID: 114268465347662332}
+  - component: {fileID: 16953282833755564}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -191,36 +191,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114270216860276012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449051131181874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fce020c0e3e465f4e813b4b4d62c8785, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy:
-    name: 
-    baseHP: 0
-    curHP: 0
-    baseMP: 0
-    curMP: 0
-    baseATK: 0
-    curATK: 0
-    baseDEF: 0
-    curDEF: 0
-    attacks: []
-    EnemyType: 0
-    rarity: 0
-  selector: {fileID: 1279332182547846}
-  enemyAttackText: {fileID: 0}
-  enemyHealthUI: {fileID: 0}
-  currentState: 0
-  HeroToAttack: {fileID: 0}
 --- !u!114 &114268465347662332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,3 +211,34 @@ MonoBehaviour:
   - {fileID: 2100000, guid: cd0bc5be26769b645b77d7f80d2f529e, type: 2}
   objectMat:
   - {fileID: 1449051131181874}
+--- !u!114 &16953282833755564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449051131181874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fce020c0e3e465f4e813b4b4d62c8785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy:
+    name: 
+    baseHP: 100
+    curHP: 100
+    baseMP: 0
+    curMP: 0
+    baseATK: 0
+    curATK: 0
+    baseDEF: 0
+    curDEF: 0
+    attacks:
+    - {fileID: 114944571292154194, guid: 56642c173777aa94886205840d805af4, type: 3}
+    EnemyType: 0
+    rarity: 0
+  selector: {fileID: 1479902577357446, guid: a94d11d7e2319cb4eb78e631dca97fcf, type: 3}
+  enemyAttackText: {fileID: 0}
+  currentState: 0
+  max_Cooldown: 6.5
+  HeroToAttack: {fileID: 0}
