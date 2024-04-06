@@ -97,22 +97,22 @@ public class BattleStateMachine : MonoBehaviour
                     EnemyStateMachine ESM = performer.GetComponent<EnemyStateMachine>();
                     ESM.HeroToAttack = PerformList[0].attackerTarget;
                     ESM.currentState = EnemyStateMachine.TurnState.Action;
-                    //for (int i = 0; i < HeroInGame.Count; i++)
-                    //    {
-                    //            if(PerformList[0].attackerTarget == HeroInGame[i])
-                    //            {
-                    //                ESM.HeroToAttack = PerformList[0].attackerTarget;
-                    //                ESM.currentState = EnemyStateMachine.TurnState.Action;
-                                  
-                    //            }
-                    //            else
-                    //            {
-                    //                PerformList[0].attackerTarget = HeroInGame[Random.Range(0, HeroInGame.Count)];
-                    //                ESM.HeroToAttack = PerformList[0].attackerTarget;
-                    //                ESM.currentState = EnemyStateMachine.TurnState.Action;
-                    //            }
-                    //    }
-                    
+                    for (int i = 0; i < HeroInGame.Count; i++)
+                    {
+                        if (PerformList[0].attackerTarget == HeroInGame[i])
+                        {
+                            ESM.HeroToAttack = PerformList[0].attackerTarget;
+                            ESM.currentState = EnemyStateMachine.TurnState.Action;
+
+                        }
+                        else
+                        {
+                            PerformList[0].attackerTarget = HeroInGame[Random.Range(0, HeroInGame.Count)];
+                            ESM.HeroToAttack = PerformList[0].attackerTarget;
+                            ESM.currentState = EnemyStateMachine.TurnState.Action;
+                        }
+                    }
+
                 }
                 if (PerformList[0].type == "Hero")
                 {
