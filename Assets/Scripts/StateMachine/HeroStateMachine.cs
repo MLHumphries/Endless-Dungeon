@@ -194,6 +194,7 @@ public class HeroStateMachine : MonoBehaviour
     void DoDamage()
     {
         HandleTurns heroAttack = new HandleTurns();
+        Debug.Log(BSM.PerformList[0].chosenAttack.attackDamage + " " + hero.curATK);
         float calc_damage = hero.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
         enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
         playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
