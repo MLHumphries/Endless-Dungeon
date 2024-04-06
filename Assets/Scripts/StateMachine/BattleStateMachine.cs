@@ -56,6 +56,18 @@ public class BattleStateMachine : MonoBehaviour
         EnemyInGame.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         HeroInGame.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
 
+        EnemyStateMachine esm1 = GameObject.Find("Enemy").GetComponent<EnemyStateMachine>();
+        EnemyStateMachine esm2 = GameObject.Find("Enemy 2").GetComponent<EnemyStateMachine>();
+
+        if (esm1 != null)
+        {
+            Debug.Log("Enemy 1 state active");
+        }
+        if (esm2 != null)
+        {
+            Debug.Log("Enemy 2 state active");
+        }
+
         heroInput = HeroGUI.Activate;
 
         attackPanel.SetActive (false);
@@ -81,22 +93,25 @@ public class BattleStateMachine : MonoBehaviour
 
                 if(PerformList[0].type == "Enemy")
                 {
+                    Debug.Log(PerformList[0].attackGameObject);
                     EnemyStateMachine ESM = performer.GetComponent<EnemyStateMachine>();
-                        for(int i = 0; i < HeroInGame.Count; i++)
-                        {
-                                if(PerformList[0].attackerTarget == HeroInGame[i])
-                                {
-                                    ESM.HeroToAttack = PerformList[0].attackerTarget;
-                                    ESM.currentState = EnemyStateMachine.TurnState.Action;
+                    ESM.HeroToAttack = PerformList[0].attackerTarget;
+                    ESM.currentState = EnemyStateMachine.TurnState.Action;
+                    //for (int i = 0; i < HeroInGame.Count; i++)
+                    //    {
+                    //            if(PerformList[0].attackerTarget == HeroInGame[i])
+                    //            {
+                    //                ESM.HeroToAttack = PerformList[0].attackerTarget;
+                    //                ESM.currentState = EnemyStateMachine.TurnState.Action;
                                   
-                                }
-                                else
-                                {
-                                    PerformList[0].attackerTarget = HeroInGame[Random.Range(0, HeroInGame.Count)];
-                                    ESM.HeroToAttack = PerformList[0].attackerTarget;
-                                    ESM.currentState = EnemyStateMachine.TurnState.Action;
-                                }
-                        }
+                    //            }
+                    //            else
+                    //            {
+                    //                PerformList[0].attackerTarget = HeroInGame[Random.Range(0, HeroInGame.Count)];
+                    //                ESM.HeroToAttack = PerformList[0].attackerTarget;
+                    //                ESM.currentState = EnemyStateMachine.TurnState.Action;
+                    //            }
+                    //    }
                     
                 }
                 if (PerformList[0].type == "Hero")

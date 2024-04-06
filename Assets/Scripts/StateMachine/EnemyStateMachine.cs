@@ -24,7 +24,7 @@ public class EnemyStateMachine : MonoBehaviour
     public TurnState currentState;
 
     private float cur_Cooldown = 0f;
-    private float max_Cooldown = 7.5f;
+    public float max_Cooldown = 10f;
 
     private Vector3 startPosition;
 
@@ -105,8 +105,10 @@ public class EnemyStateMachine : MonoBehaviour
         myAttack.attackerTarget = BSM.HeroInGame[Random.Range(0, BSM.HeroInGame.Count)];
 
         int num = Random.Range(0, enemy.attacks.Count);
+        
         myAttack.chosenAttack = enemy.attacks[num];
-        enemyAttackText.text = this.gameObject.name.ToString() + " has chosen " + myAttack.chosenAttack.attackName.ToString() + " and does " + myAttack.chosenAttack.attackDamage.ToString() + " damage";
+       
+        enemyAttackText.text = enemy.name + " has chosen " + myAttack.chosenAttack.attackName.ToString() + " and does " + myAttack.chosenAttack.attackDamage.ToString() + " damage";
 
         BSM.CollectActions(myAttack);
 
@@ -172,8 +174,8 @@ public class EnemyStateMachine : MonoBehaviour
         //UpdateEnemyHealth();
     }
 
-    void UpdateEnemyHealth()
-    {
-        enemyHealthUI.text = "HP: " + enemy.curHP;
-    }
+    //void UpdateEnemyHealth()
+    //{
+    //    enemyHealthUI.text = "HP: " + enemy.curHP;
+    //}
 }
