@@ -11,7 +11,7 @@ public class BaseHero : BaseClass
     public int dexterity;
     public int luck;
 
-    public List<BaseAttack> physicalAttacks = new List<BaseAttack>();
+    //public List<BaseAttack> physicalAttacks = new List<BaseAttack>();
     public List<BaseAttack> magicAttacks = new List<BaseAttack>();
     
 	

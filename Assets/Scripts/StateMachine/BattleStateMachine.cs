@@ -41,7 +41,9 @@ public class BattleStateMachine : MonoBehaviour
     //Magic Attacks
     public Transform actionSpacer;
     public Transform magicSpacer;
+    public Transform attackSpacer;
     public GameObject actionButton;
+    public GameObject physicalAttackButton;
     public GameObject magicButton;
     private List<GameObject> atkBtns = new List<GameObject>();
 
@@ -207,18 +209,19 @@ public class BattleStateMachine : MonoBehaviour
         magicAttackButton.transform.SetParent(actionSpacer, false);
         atkBtns.Add(magicAttackButton);
 
-        if (HeroesToManage[0].GetComponent<HeroStateMachine>().hero.physicalAttacks.Count > 0)
+        if (HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks.Count > 0)
         {
-            foreach (BaseAttack physicalAttack in HeroesToManage[0].GetComponent<HeroStateMachine>().hero.physicalAttacks)
+            foreach (BaseAttack physicalAttack in HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks)
             {
-                GameObject physicalButton = Instantiate(magicButton) as GameObject;
-                Text magicButtonText = magicButton.transform.Find("Text").gameObject.GetComponent<Text>();
-                magicButtonText.text = physicalAttack.attackName;
+                GameObject physicalButton = Instantiate(physicalAttackButton) as GameObject;
+                Text physicalAttackButtonText = physicalAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
+                physicalAttackButtonText.text = physicalAttack.attackName;
                 AttackButton ATB = physicalButton.GetComponent<AttackButton>();
-                ATB.magicAttackToPerform = physicalAttack;
-                physicalButton.transform.SetParent(magicSpacer, false);
+                ATB.physicalAttackToPeform = physicalAttack;
+                physicalButton.transform.SetParent(attackSpacer, false);
                 atkBtns.Add(physicalButton);
             }
+
         }
         else
         {
