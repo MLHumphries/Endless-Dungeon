@@ -190,7 +190,8 @@ public class HeroStateMachine : MonoBehaviour
             hero.curHP = 0;
             currentState = TurnState.Dead;
         }
-            
+
+        isDefending = false;
         UpdateHeroPanel();
     }
     void DoDamage()
