@@ -34,13 +34,16 @@ public class BattleStateMachine : MonoBehaviour
     public Transform spacer;
 
     public GameObject attackPanel;
+    public GameObject physicalAttackPanel;
     public GameObject enemySelectPanel;
     public GameObject magicPanel;
    
     //Magic Attacks
     public Transform actionSpacer;
     public Transform magicSpacer;
+    public Transform attackSpacer;
     public GameObject actionButton;
+    public GameObject physicalAttackButton;
     public GameObject magicButton;
     private List<GameObject> atkBtns = new List<GameObject>();
 
@@ -174,28 +177,12 @@ public class BattleStateMachine : MonoBehaviour
             newButton.transform.SetParent(spacer);
         }
     }
-    //Attack button
-    public void Input1() 
-    {
-        heroChoice.attackerName = HeroesToManage[0].name;
-        heroChoice.attackGameObject = HeroesToManage[0];
-        heroChoice.type = "Hero";
-        heroChoice.chosenAttack = HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks[0];
-        attackPanel.SetActive(false);
-        enemySelectPanel.SetActive(true);
 
-    }
-    //Enemy selector
-    public void Input2(GameObject chooseEnemy) 
-    {
-        heroChoice.attackerTarget = chooseEnemy;
-        heroInput = HeroGUI.Done;
-    }
     void HeroInputDone()
     {
         PerformList.Add(heroChoice);
         enemySelectPanel.SetActive(false);
-        foreach(GameObject atkBtn in atkBtns)
+        foreach (GameObject atkBtn in atkBtns)
         {
             Destroy(atkBtn);
         }
@@ -211,26 +198,45 @@ public class BattleStateMachine : MonoBehaviour
         GameObject attackButton = Instantiate(actionButton) as GameObject;
         Text attackButtonText = attackButton.transform.Find("Text").gameObject.GetComponent<Text>();
         attackButtonText.text = "Attack";
-        attackButton.GetComponent<Button>().onClick.AddListener( () => Input1() );
+        attackButton.GetComponent<Button>().onClick.AddListener(() => OpenPhysicalAttacksMenu());
         attackButton.transform.SetParent(actionSpacer, false);
         atkBtns.Add(attackButton);
 
         GameObject magicAttackButton = Instantiate(actionButton) as GameObject;
         Text magicAttackButtonText = magicAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
         magicAttackButtonText.text = "Magic";
-        magicAttackButton.GetComponent<Button>().onClick.AddListener(() => Input3());
+        magicAttackButton.GetComponent<Button>().onClick.AddListener(() => OpenMagicAttacksMenu());
         magicAttackButton.transform.SetParent(actionSpacer, false);
         atkBtns.Add(magicAttackButton);
 
-        if(HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks.Count > 0)
+        if (HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks.Count > 0)
         {
-            foreach(BaseAttack magicAtk in HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks)
+            foreach (BaseAttack physicalAttack in HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks)
+            {
+                GameObject physicalButton = Instantiate(physicalAttackButton) as GameObject;
+                Text physicalAttackButtonText = physicalAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
+                physicalAttackButtonText.text = physicalAttack.attackName;
+                AttackButton ATB = physicalButton.GetComponent<AttackButton>();
+                ATB.physicalAttackToPeform = physicalAttack;
+                physicalButton.transform.SetParent(attackSpacer, false);
+                atkBtns.Add(physicalButton);
+            }
+
+        }
+        else
+        {
+            attackButton.GetComponent<Button>().interactable = false;
+        }
+
+        if (HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks.Count > 0)
+        {
+            foreach (BaseAttack magicAttack in HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks)
             {
                 GameObject MagicButton = Instantiate(magicButton) as GameObject;
                 Text magicButtonText = magicButton.transform.Find("Text").gameObject.GetComponent<Text>();
-                magicButtonText.text = magicAtk.attackName;
+                magicButtonText.text = magicAttack.attackName;
                 AttackButton ATB = MagicButton.GetComponent<AttackButton>();
-                ATB.magicAttackToPerform = magicAtk;
+                ATB.magicAttackToPerform = magicAttack;
                 MagicButton.transform.SetParent(magicSpacer, false);
                 atkBtns.Add(MagicButton);
             }
@@ -240,22 +246,58 @@ public class BattleStateMachine : MonoBehaviour
             magicAttackButton.GetComponent<Button>().interactable = false;
         }
     }
-    //Choosing magic attack if possible
-    public void Input4(BaseAttack chooseMagic)
+
+    //Attack button
+    public void Input1() 
+    {
+        heroChoice.attackerName = HeroesToManage[0].name;
+        heroChoice.attackGameObject = HeroesToManage[0];
+        heroChoice.type = "Hero";
+        heroChoice.chosenAttack = HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks[0];
+        attackPanel.SetActive(false);
+        enemySelectPanel.SetActive(true);
+    }
+
+    public void SelectPhysicalAttack(BaseAttack attack)
     {
         heroChoice.attackerName = HeroesToManage[0].name;
         heroChoice.attackGameObject = HeroesToManage[0];
         heroChoice.type = "Hero";
 
-        heroChoice.chosenAttack = chooseMagic;
+        heroChoice.chosenAttack = attack;
+        physicalAttackPanel.SetActive(false);
+        enemySelectPanel.SetActive(true);
+    }
+    //Enemy selector
+    public void SelectEnemy(GameObject enemy) 
+    {
+        heroChoice.attackerTarget = enemy;
+        heroInput = HeroGUI.Done;
+    }
+    
+    //Choosing magic attack if possible
+    public void SelectMagicAttack(BaseAttack magicAttack)
+    {
+        heroChoice.attackerName = HeroesToManage[0].name;
+        heroChoice.attackGameObject = HeroesToManage[0];
+        heroChoice.type = "Hero";
+
+        heroChoice.chosenAttack = magicAttack;
         magicPanel.SetActive(false);
         enemySelectPanel.SetActive(true);
     }
-    //Switching to magic attacks
-    public void Input3()
+    //Switching to magic attack menu
+    public void OpenMagicAttacksMenu()
     {
         attackPanel.SetActive(false);
         magicPanel.SetActive(true);
+    }
+    
+    //Switch to physical attack menu
+    public void OpenPhysicalAttacksMenu()
+    {
+        attackPanel.SetActive(false);
+        physicalAttackPanel.SetActive(true);
     }
 
 }
