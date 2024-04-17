@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class ArenaSprites : MonoBehaviour
 {
-    public Material[] matChoice;
-    public GameObject[] objectMat;
+    public Material[] floorMatChoice;
+    public Material[] wallMatChoice;
+    public GameObject floor;
+    public GameObject wall;
 
     // Use this for initialization
     void Start()
-    {
-        foreach (GameObject mat in objectMat)
-        {
+    {       
+            floor.GetComponent<Renderer>().material = floorMatChoice[Random.Range(0, floorMatChoice.Length)];
+            wall.GetComponent<Renderer>().material = wallMatChoice[Random.Range(0, wallMatChoice.Length)];
             //mat.renderer.material = matChoice[Random.Range(0, matChoice.Length)];
-            mat.GetComponent<Renderer>().material = matChoice[Random.Range(0, matChoice.Length)];
-        }
-
     }
 
 }
