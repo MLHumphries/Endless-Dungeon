@@ -159,6 +159,7 @@ public class EnemyStateMachine : MonoBehaviour
     void DoDamage()
     {
         float calc_damage = enemy.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
+        
         HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calc_damage);
         enemyAttackText.text = "";
     }

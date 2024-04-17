@@ -13,6 +13,7 @@ public class BaseHero : BaseClass
 
     //public List<BaseAttack> physicalAttacks = new List<BaseAttack>();
     public List<BaseAttack> magicAttacks = new List<BaseAttack>();
-    
-	
+    public BaseAttack defense;
+
+
 }

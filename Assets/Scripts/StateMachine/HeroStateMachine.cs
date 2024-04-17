@@ -13,6 +13,7 @@ public class HeroStateMachine : MonoBehaviour
     public GameObject enemyToAttack;
 
     private bool actionStarted = false;
+    public bool isDefending;
 
     private Vector3 startPosition;
     private float animSpeed = 10f;
@@ -54,7 +55,7 @@ public class HeroStateMachine : MonoBehaviour
         selector.SetActive(false);
         BSM = GameObject.Find("GameManager").GetComponent<BattleStateMachine>();
         currentState = TurnState.Processing;
-	}
+    }
 	
 	
 	void Update ()
@@ -112,7 +113,7 @@ public class HeroStateMachine : MonoBehaviour
 
                     alive = false;
 
-                    SceneManager.LoadScene("Game Over");
+                    //SceneManager.LoadScene("Game Over");
                 }
                 break;
                 
@@ -148,7 +149,11 @@ public class HeroStateMachine : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         //do damage
-        DoDamage();
+        if(!isDefending)
+        {
+            DoDamage();
+        }
+        
 
         Vector3 firstPosition = startPosition;
         while (MoveTowardsEnemy(startPosition))
@@ -176,44 +181,35 @@ public class HeroStateMachine : MonoBehaviour
     {
         return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
     }
-    private bool MoveTowards(Vector3 target)
-    {
-        return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
-    }
-
+    
     public void TakeDamage(float getDamageAmount)
-    {
+    {             
         hero.curHP -= getDamageAmount;
-        if(hero.curHP <= 0)
+        if (hero.curHP <= 0)
         {
             hero.curHP = 0;
             currentState = TurnState.Dead;
         }
+            
         UpdateHeroPanel();
     }
     void DoDamage()
     {
         HandleTurns heroAttack = new HandleTurns();
-        Debug.Log(BSM.PerformList[0].chosenAttack.attackDamage + " " + hero.curATK);
+        //Debug.Log(BSM.PerformList[0].chosenAttack.attackDamage + " " + hero.curATK);
         float calc_damage = hero.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
         enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
         playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
         hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
         TextDelay();
         UpdateHeroPanel();
-        //Debug.Log(this.gameObject.name + " does " + calc_damage + " damage");
-        //Debug.Log(this.gameObject.name + " has choosen " + .choosenAttack.attackName + " and does " + myAttack.choosenAttack.attackDamage + " dammage");
     }
 
     void CreateHeroPanel()
     {
-        //HeroPanelName = GameObject.FindGameObjectWithTag("Name");
-        //HeroPanelStats = GameObject.FindGameObjectWithTag("Stats");
-
         heroName = HeroPanelName.GetComponent<HeroPanelName>();
         heroStats = HeroPanelStats.GetComponent<HeroPanelStats>();
         
-
         heroName.heroName.text = hero.name;
         heroStats.heroHP.text = hero.curHP + "/" + hero.baseHP;
         heroStats.heroMP.text = hero.curMP + "/" + hero.baseMP;

@@ -235,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
         type: 3}
       propertyPath: max_Cooldown
-      value: 2
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
         type: 3}
@@ -479,12 +479,15 @@ MonoBehaviour:
     type: 3}
   spacer: {fileID: 235049162}
   attackPanel: {fileID: 1317678281}
-  baseAttackPanel: {fileID: 1371673566}
+  physicalAttackPanel: {fileID: 1371673566}
   enemySelectPanel: {fileID: 1645851121}
   magicPanel: {fileID: 950054556}
   actionSpacer: {fileID: 1086934838}
   magicSpacer: {fileID: 877930502}
+  attackSpacer: {fileID: 755071006}
   actionButton: {fileID: 1108673869622142, guid: 89e4ea3aa48bf054a941a3a0f65fa0be,
+    type: 3}
+  physicalAttackButton: {fileID: 2008113114548584135, guid: 9beca75362adadf4ca97e1e3c274fefa,
     type: 3}
   magicButton: {fileID: 3377577521836942944, guid: 02452f8b36c256845b052a9282d1b80e,
     type: 3}
@@ -733,7 +736,7 @@ GameObject:
   - component: {fileID: 755071006}
   - component: {fileID: 755071007}
   m_Layer: 5
-  m_Name: MagicSpacer
+  m_Name: AttackSpacer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1020,7 +1023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &950054557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1121,7 +1124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1371673567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1490,7 +1493,7 @@ PrefabInstance:
     - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
         type: 3}
       propertyPath: max_Cooldown
-      value: 2
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1279332182547846, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
       propertyPath: m_IsActive
@@ -2386,6 +2389,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5412601472198009136, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1923347373332497872, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_Name
@@ -3080,11 +3088,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 436735660}
+      objectReference: {fileID: 436735661}
     - target: {fileID: 3547133882637691027, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: OpenPhysicalAttacksMenu
       objectReference: {fileID: 0}
     - target: {fileID: 3547133882637691027, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
@@ -3154,7 +3162,7 @@ PrefabInstance:
     - target: {fileID: 9188668914849736800, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Input3
+      value: OpenMagicAttacksMenu
       objectReference: {fileID: 0}
     - target: {fileID: 9188668914849736800, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
@@ -3215,7 +3223,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 436735660}
+      objectReference: {fileID: 436735661}
+    - target: {fileID: 8614595328186719008, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Defend
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614595328186719008, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8764188961771657344, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_FontData.m_MinSize
