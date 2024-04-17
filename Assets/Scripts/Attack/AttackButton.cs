@@ -8,7 +8,7 @@ public class AttackButton : MonoBehaviour
 
     public void CastMagicAttack()
     {
-        GameObject.Find("GameManager").GetComponent<BattleStateMachine>().Input4(magicAttackToPerform);
+        GameObject.Find("GameManager").GetComponent<BattleStateMachine>().SelectMagicAttack(magicAttackToPerform);
     }
 	
 }
