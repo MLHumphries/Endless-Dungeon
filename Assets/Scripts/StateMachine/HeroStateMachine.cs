@@ -133,6 +133,7 @@ public class HeroStateMachine : MonoBehaviour
     }
     private IEnumerator TimeForAction()
     {
+        playerUIText.text = "";
         if (actionStarted)
         {
             yield break;
@@ -161,7 +162,7 @@ public class HeroStateMachine : MonoBehaviour
             yield return null;
         }
 
-        playerUIText.text = "";
+        
 
         BSM.PerformList.RemoveAt(0);
 
@@ -186,7 +187,7 @@ public class HeroStateMachine : MonoBehaviour
     {
         if (isDefending == true)
         {
-            playerUIText.text = heroName.heroName.text + " is defending";
+            playerUIText.text = heroName.heroName.text + " is defending.";
         }
         hero.curHP -= getDamageAmount;
         if (hero.curHP <= 0)

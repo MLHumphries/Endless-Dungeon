@@ -68,24 +68,32 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
 
             case (TurnState.Dead):
-                this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
+                //change tag
+                this.gameObject.tag = "DeadEnemy";
+                //not attackable
+                BSM.EnemyInGame.Remove(this.gameObject);
 
-                StartCoroutine(WinGame());
+                //remove item from perform list
+                for (int i = 0; i < BSM.PerformList.Count; i++)
+                {
+                    if (BSM.PerformList[i].attackGameObject == this.gameObject)
+                    {
+                        BSM.PerformList.Remove(BSM.PerformList[i]);
+                    }
+                }
+
+                this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
                 
-                
-                
+                //StartCoroutine(WinGame());
                 break;
 
         }
     }
     private IEnumerator WinGame()
     {
-        
-        
         yield return new WaitForSeconds(2);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
     }
     void UpdateProgressBar()
     {
@@ -136,6 +144,8 @@ public class EnemyStateMachine : MonoBehaviour
             yield return null;
         }
 
+        enemyAttackText.text = "";
+
         BSM.PerformList.RemoveAt(0);
 
         BSM.battleState = BattleStateMachine.PerformAction.Wait;
@@ -167,7 +177,7 @@ public class EnemyStateMachine : MonoBehaviour
         }
         HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
         enemyAttackText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calcDamage + " damage";
-
+        TextDelay();
     }
     public void TakeDamage(float getDamageAmount)
     {
@@ -179,6 +189,11 @@ public class EnemyStateMachine : MonoBehaviour
             currentState = TurnState.Dead;
         }
         //UpdateEnemyHealth();
+    }
+
+    private IEnumerator TextDelay()
+    {
+        yield return new WaitForSeconds(0.75f);
     }
 
     //void UpdateEnemyHealth()
