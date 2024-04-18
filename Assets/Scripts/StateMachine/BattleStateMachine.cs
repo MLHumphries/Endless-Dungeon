@@ -25,7 +25,7 @@ public class BattleStateMachine : MonoBehaviour
         Activate,
         Waiting,
         Input1,
-        Input2,
+        Defending,
         Done
     }
     public HeroGUI heroInput;
@@ -62,14 +62,14 @@ public class BattleStateMachine : MonoBehaviour
         EnemyStateMachine esm1 = GameObject.Find("Enemy").GetComponent<EnemyStateMachine>();
         EnemyStateMachine esm2 = GameObject.Find("Enemy 2").GetComponent<EnemyStateMachine>();
 
-        if (esm1 != null)
-        {
-            Debug.Log("Enemy 1 state active");
-        }
-        if (esm2 != null)
-        {
-            Debug.Log("Enemy 2 state active");
-        }
+        //if (esm1 != null)
+        //{
+        //    Debug.Log("Enemy 1 state active");
+        //}
+        //if (esm2 != null)
+        //{
+        //    Debug.Log("Enemy 2 state active");
+        //}
 
         heroInput = HeroGUI.Activate;
 
@@ -149,6 +149,11 @@ public class BattleStateMachine : MonoBehaviour
             case (HeroGUI.Waiting): 
 
                 break;
+            case (HeroGUI.Defending):
+                Delay();
+                heroInput = HeroGUI.Done;
+                break;
+
             case (HeroGUI.Done):
                 HeroInputDone();
                 break;
@@ -298,6 +303,25 @@ public class BattleStateMachine : MonoBehaviour
     {
         attackPanel.SetActive(false);
         physicalAttackPanel.SetActive(true);
+    }
+
+    public void Defend()
+    {
+        bool isDefending = true;
+        heroInput = HeroGUI.Defending;
+        heroChoice.attackerName = HeroesToManage[0].name;
+        heroChoice.attackGameObject = HeroesToManage[0];
+        heroChoice.type = "Hero";
+        heroChoice.chosenAttack = HeroesToManage[0].GetComponent<HeroStateMachine>().hero.defense;
+        heroChoice.attackerTarget = HeroesToManage[0];
+
+        HeroesToManage[0].GetComponent<HeroStateMachine>().isDefending = isDefending;
+        attackPanel.SetActive(false);
+    }
+
+    private IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(4.0f);
     }
 
 }

@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero:
-    theName: Hero
+    name: 
     baseHP: 10
     curHP: 10
     baseMP: 100
@@ -125,8 +125,11 @@ MonoBehaviour:
     - {fileID: 114532338881853432, guid: c8d09d85309df974880d7587d9b0337c, type: 3}
     - {fileID: 938727625713594370, guid: 6df5783b207cdc141b2fac140434e2bb, type: 3}
     - {fileID: 9046573769622345808, guid: 9286fc6f4fb25bc458fa5863d433f1cd, type: 3}
+    defense: {fileID: 1538527964066159947, guid: b79e4d87d26622a44abda3b900e9fae3,
+      type: 3}
   selector: {fileID: 1863512710767340}
   enemyToAttack: {fileID: 0}
+  canTakeDamage: 1
   playerUIText: {fileID: 0}
   currentState: 0
   HeroPanelName: {fileID: 0}

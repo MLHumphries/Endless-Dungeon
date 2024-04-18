@@ -107,9 +107,7 @@ public class EnemyStateMachine : MonoBehaviour
         int num = Random.Range(0, enemy.attacks.Count);
         
         myAttack.chosenAttack = enemy.attacks[num];
-       
-        enemyAttackText.text = enemy.name + " has chosen " + myAttack.chosenAttack.attackName.ToString() + " and does " + myAttack.chosenAttack.attackDamage.ToString() + " damage";
-
+      
         BSM.CollectActions(myAttack);
 
     }
@@ -158,9 +156,18 @@ public class EnemyStateMachine : MonoBehaviour
 
     void DoDamage()
     {
-        float calc_damage = enemy.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
-        HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calc_damage);
-        enemyAttackText.text = "";
+        float calcDamage;
+        if(HeroToAttack.GetComponent<HeroStateMachine>().isDefending)
+        {
+            calcDamage = 0;
+        }
+        else
+        {
+            calcDamage = enemy.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
+        }
+        HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
+        enemyAttackText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calcDamage + " damage";
+
     }
     public void TakeDamage(float getDamageAmount)
     {
