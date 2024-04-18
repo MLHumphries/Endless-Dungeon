@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EnemyStateMachine : MonoBehaviour
@@ -29,6 +28,7 @@ public class EnemyStateMachine : MonoBehaviour
     private Vector3 startPosition;
 
     private bool actionStarted = false;
+    private bool alive = true;
     public GameObject HeroToAttack;
 
     private float animSpeed = 10f;
@@ -68,25 +68,49 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
 
             case (TurnState.Dead):
-                this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
+                if (!alive)
+                {
+                    return;
+                }
+                else
+                {
+                    //change tag
+                    this.gameObject.tag = "DeadEnemy";
+                    //not attackable
+                    BSM.EnemyInGame.Remove(this.gameObject);
+                    //disable selector
+                    selector.SetActive(false);
+                    if(BSM.EnemyInGame.Count > 0)
+                    {
+                        //remove item from perform list
+                        for (int i = 0; i < BSM.PerformList.Count; i++)
+                        {
+                            if (BSM.PerformList[i].attackGameObject == this.gameObject)
+                            {
+                                BSM.PerformList.Remove(BSM.PerformList[i]);
+                            }
+                            else if (BSM.PerformList[i].attackerTarget == this.gameObject)
+                            {
+                                BSM.PerformList[i].attackerTarget = BSM.EnemyInGame[Random.Range(0, BSM.EnemyInGame.Count)];
+                            }
+                        }
+                    }
+                    
+                    //Changes color and rotates character
+                    this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
+                    this.gameObject.transform.Rotate(90, 0, 180);
+                    
+                    alive = false;
+                    BSM.EnemyButtons();
+                    BSM.battleState = BattleStateMachine.PerformAction.CheckAlive;
+                }
 
-                StartCoroutine(WinGame());
-                
-                
-                
+
                 break;
 
         }
     }
-    private IEnumerator WinGame()
-    {
-        
-        
-        yield return new WaitForSeconds(2);
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
-    }
+   
     void UpdateProgressBar()
     {
         cur_Cooldown = cur_Cooldown + Time.deltaTime;
@@ -136,6 +160,8 @@ public class EnemyStateMachine : MonoBehaviour
             yield return null;
         }
 
+        enemyAttackText.text = "";
+
         BSM.PerformList.RemoveAt(0);
 
         BSM.battleState = BattleStateMachine.PerformAction.Wait;
@@ -167,7 +193,7 @@ public class EnemyStateMachine : MonoBehaviour
         }
         HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
         enemyAttackText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calcDamage + " damage";
-
+        TextDelay();
     }
     public void TakeDamage(float getDamageAmount)
     {
@@ -179,6 +205,11 @@ public class EnemyStateMachine : MonoBehaviour
             currentState = TurnState.Dead;
         }
         //UpdateEnemyHealth();
+    }
+
+    private IEnumerator TextDelay()
+    {
+        yield return new WaitForSeconds(0.75f);
     }
 
     //void UpdateEnemyHealth()

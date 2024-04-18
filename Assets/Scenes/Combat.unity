@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4934632792685274, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934632792685274, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
       propertyPath: m_LocalRotation.y
@@ -246,6 +246,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enemy.curHP
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
+        type: 3}
+      propertyPath: enemy.curATK
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
@@ -581,7 +586,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1037298249787104, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_Name
-      value: Player (1)
+      value: Tifa
       objectReference: {fileID: 0}
     - target: {fileID: 1037298249787104, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_IsActive
@@ -693,6 +698,16 @@ PrefabInstance:
       propertyPath: hero.name
       value: Tifa
       objectReference: {fileID: 0}
+    - target: {fileID: 114015842548285284, guid: 2734c50b899b1034e8d6bebe19382128,
+        type: 3}
+      propertyPath: hero.baseATK
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114015842548285284, guid: 2734c50b899b1034e8d6bebe19382128,
+        type: 3}
+      propertyPath: hero.curATK
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1863512710767340, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -793,6 +808,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1866399553}
     m_Modifications:
+    - target: {fileID: 1037298249787104, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
+      propertyPath: m_Name
+      value: Cloud
+      objectReference: {fileID: 0}
     - target: {fileID: 4457225060211468, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_LocalPosition.x
       value: -540.61646
@@ -908,6 +927,16 @@ PrefabInstance:
         type: 3}
       propertyPath: hero.name
       value: Cloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 114015842548285284, guid: 2734c50b899b1034e8d6bebe19382128,
+        type: 3}
+      propertyPath: hero.baseATK
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114015842548285284, guid: 2734c50b899b1034e8d6bebe19382128,
+        type: 3}
+      propertyPath: hero.curATK
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1863512710767340, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_IsActive
@@ -1493,7 +1522,12 @@ PrefabInstance:
     - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
         type: 3}
       propertyPath: max_Cooldown
-      value: 200
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
+        type: 3}
+      propertyPath: enemy.curATK
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1279332182547846, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
       propertyPath: m_IsActive
@@ -2282,7 +2316,7 @@ PrefabInstance:
     - target: {fileID: 2576481650616336414, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372235666959, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
@@ -3092,7 +3126,7 @@ PrefabInstance:
     - target: {fileID: 3547133882637691027, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenPhysicalAttacksMenu
+      value: Input1
       objectReference: {fileID: 0}
     - target: {fileID: 3547133882637691027, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
