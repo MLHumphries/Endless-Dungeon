@@ -164,8 +164,8 @@ public class EnemyStateMachine : MonoBehaviour
         else
         {
             calcDamage = enemy.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
-            HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
         }
+        HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
         enemyAttackText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calcDamage + " damage";
 
     }

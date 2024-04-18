@@ -183,7 +183,11 @@ public class HeroStateMachine : MonoBehaviour
     }
     
     public void TakeDamage(float getDamageAmount)
-    {             
+    {
+        if (isDefending == true)
+        {
+            playerUIText.text = heroName.heroName.text + " is defending";
+        }
         hero.curHP -= getDamageAmount;
         if (hero.curHP <= 0)
         {
@@ -200,6 +204,7 @@ public class HeroStateMachine : MonoBehaviour
         //Debug.Log(BSM.PerformList[0].chosenAttack.attackDamage + " " + hero.curATK);
         float calc_damage = hero.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
         enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
+        
         playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
         hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
         TextDelay();
