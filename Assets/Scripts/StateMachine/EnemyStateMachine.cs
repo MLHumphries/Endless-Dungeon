@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EnemyStateMachine : MonoBehaviour
@@ -29,6 +28,7 @@ public class EnemyStateMachine : MonoBehaviour
     private Vector3 startPosition;
 
     private bool actionStarted = false;
+    private bool alive = true;
     public GameObject HeroToAttack;
 
     private float animSpeed = 10f;
@@ -68,33 +68,41 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
 
             case (TurnState.Dead):
-                //change tag
-                this.gameObject.tag = "DeadEnemy";
-                //not attackable
-                BSM.EnemyInGame.Remove(this.gameObject);
-
-                //remove item from perform list
-                for (int i = 0; i < BSM.PerformList.Count; i++)
+                if (!alive)
                 {
-                    if (BSM.PerformList[i].attackGameObject == this.gameObject)
+                    return;
+                }
+                else
+                {
+                    //change tag
+                    this.gameObject.tag = "DeadEnemy";
+                    //not attackable
+                    BSM.EnemyInGame.Remove(this.gameObject);
+                    //disable selector
+                    selector.SetActive(false);
+                    //remove item from perform list
+                    for (int i = 0; i < BSM.PerformList.Count; i++)
                     {
-                        BSM.PerformList.Remove(BSM.PerformList[i]);
+                        if (BSM.PerformList[i].attackGameObject == this.gameObject)
+                        {
+                            BSM.PerformList.Remove(BSM.PerformList[i]);
+                        }
                     }
+                    //Changes color and rotates character
+                    this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
+                    this.gameObject.transform.Rotate(90, 0, 180);
+                    
+                    alive = false;
+                    BSM.EnemyButtons();
+                    BSM.battleState = BattleStateMachine.PerformAction.CheckAlive;
                 }
 
-                this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
-                
-                //StartCoroutine(WinGame());
+
                 break;
 
         }
     }
-    private IEnumerator WinGame()
-    {
-        yield return new WaitForSeconds(2);
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+   
     void UpdateProgressBar()
     {
         cur_Cooldown = cur_Cooldown + Time.deltaTime;

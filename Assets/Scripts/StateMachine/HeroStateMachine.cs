@@ -106,14 +106,13 @@ public class HeroStateMachine : MonoBehaviour
                             BSM.PerformList.Remove(BSM.PerformList[i]);
                         }
                     }
-                    //change color
+                    //Changes color and rotates character
                     this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
-                    //reset hero input
-                    BSM.heroInput = BattleStateMachine.HeroGUI.Activate;
+                    this.gameObject.transform.Rotate(90, 0, 180);
+                    //Checks if player is alive
+                    BSM.battleState = BattleStateMachine.PerformAction.CheckAlive;
 
                     alive = false;
-
-                    //SceneManager.LoadScene("Game Over");
                 }
                 break;
                 
@@ -154,7 +153,6 @@ public class HeroStateMachine : MonoBehaviour
         {
             DoDamage();
         }
-        
 
         Vector3 firstPosition = startPosition;
         while (MoveTowardsEnemy(startPosition))
@@ -162,16 +160,22 @@ public class HeroStateMachine : MonoBehaviour
             yield return null;
         }
 
-        
-
         BSM.PerformList.RemoveAt(0);
-
-        BSM.battleState = BattleStateMachine.PerformAction.Wait;
+        if(BSM.battleState != BattleStateMachine.PerformAction.Win && BSM.battleState != BattleStateMachine.PerformAction.Lose)
+        {
+            BSM.battleState = BattleStateMachine.PerformAction.Wait;
+            cur_Cooldown = 0f;
+            currentState = TurnState.Processing;
+        }
+        else
+        {
+            currentState = TurnState.Waiting;
+        }
+        
         //end Coroutine
         actionStarted = false;
         //reset EnemyState
-        cur_Cooldown = 0f;
-        currentState = TurnState.Processing;
+        
     }
     private IEnumerator TextDelay()
     {
