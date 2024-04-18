@@ -98,14 +98,22 @@ public class HeroStateMachine : MonoBehaviour
                     //reset gui
                     BSM.attackPanel.SetActive(false);
                     BSM.enemySelectPanel.SetActive(false);
-                    //remove item from perform list
-                    for(int i = 0; i < BSM.PerformList.Count; i ++)
+                    if(BSM.HeroInGame.Count > 0)
                     {
-                        if (BSM.PerformList[i].attackGameObject == this.gameObject)
+                        //remove item from perform list
+                        for (int i = 0; i < BSM.PerformList.Count; i++)
                         {
-                            BSM.PerformList.Remove(BSM.PerformList[i]);
+                            if (BSM.PerformList[i].attackGameObject == this.gameObject)
+                            {
+                                BSM.PerformList.Remove(BSM.PerformList[i]);
+                            }
+                            else if (BSM.PerformList[i].attackerTarget == this.gameObject)
+                            {
+                                BSM.PerformList[i].attackerTarget = BSM.HeroInGame[Random.Range(0, BSM.HeroInGame.Count)];
+                            }
                         }
                     }
+                    
                     //Changes color and rotates character
                     this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
                     this.gameObject.transform.Rotate(90, 0, 180);

@@ -250,7 +250,7 @@ PrefabInstance:
     - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
         type: 3}
       propertyPath: enemy.curATK
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
@@ -1527,7 +1527,7 @@ PrefabInstance:
     - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
         type: 3}
       propertyPath: enemy.curATK
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1279332182547846, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
       propertyPath: m_IsActive
@@ -3126,7 +3126,7 @@ PrefabInstance:
     - target: {fileID: 3547133882637691027, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenPhysicalAttacksMenu
+      value: Input1
       objectReference: {fileID: 0}
     - target: {fileID: 3547133882637691027, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
