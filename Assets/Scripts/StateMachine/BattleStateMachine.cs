@@ -365,7 +365,7 @@ public class BattleStateMachine : MonoBehaviour
         heroChoice.attackerName = HeroesToManage[0].name;
         heroChoice.attackGameObject = HeroesToManage[0];
         heroChoice.type = "Hero";
-        heroChoice.chosenAttack = HeroesToManage[0].GetComponent<HeroStateMachine>().hero.defense;
+        heroChoice.chosenAttack = HeroesToManage[0].GetComponent<HeroStateMachine>().hero.defend;
         heroChoice.attackerTarget = HeroesToManage[0];
 
         HeroesToManage[0].GetComponent<HeroStateMachine>().isDefending = isDefending;

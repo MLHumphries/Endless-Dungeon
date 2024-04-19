@@ -182,18 +182,21 @@ public class EnemyStateMachine : MonoBehaviour
 
     void DoDamage()
     {
+        HeroStateMachine HSM = HeroToAttack.GetComponent<HeroStateMachine>();
         float calcDamage;
-        if(HeroToAttack.GetComponent<HeroStateMachine>().isDefending)
+        if(HSM.isDefending)
         {
-            calcDamage = 0;
+            calcDamage = (enemy.strength + BSM.PerformList[0].chosenAttack.attackDamage) - (HSM.hero.defense / (enemy.strength + BSM.PerformList[0].chosenAttack.attackDamage));
+            print(BSM.PerformList[0].chosenAttack.attackName + BSM.PerformList[0].chosenAttack.attackDamage);
+            print(calcDamage);
         }
         else
         {
-            calcDamage = enemy.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
+            calcDamage = enemy.strength + BSM.PerformList[0].chosenAttack.attackDamage;
         }
         HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
         enemyAttackText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calcDamage + " damage";
-        TextDelay();
+        StartCoroutine(TextDelay());
     }
     public void TakeDamage(float getDamageAmount)
     {

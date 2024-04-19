@@ -55,7 +55,7 @@ public class HeroStateMachine : MonoBehaviour
         selector.SetActive(false);
         BSM = GameObject.Find("GameManager").GetComponent<BattleStateMachine>();
         currentState = TurnState.Processing;
-        maxCooldown = maxCooldown - (hero.stamina / 100f);
+        maxCooldown = maxCooldown - (hero.speed / 100f);
     }
 	
 	
@@ -214,14 +214,28 @@ public class HeroStateMachine : MonoBehaviour
     }
     void DoDamage()
     {
-        HandleTurns heroAttack = new HandleTurns();
-        //Debug.Log(BSM.PerformList[0].chosenAttack.attackDamage + " " + hero.curATK);
-        float calc_damage = hero.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
+        //HandleTurns heroAttack = new HandleTurns();
+        float calc_damage;
+
+        if (BSM.PerformList[0].chosenAttack.attackCost > 0)
+        {
+            calc_damage = hero.intellect + BSM.PerformList[0].chosenAttack.attackDamage;
+            print(BSM.PerformList[0].chosenAttack.attackName);
+            print("Intellect: " + hero.intellect + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+        }
+        else
+        {
+            calc_damage = hero.strength + BSM.PerformList[0].chosenAttack.attackDamage;
+            print(BSM.PerformList[0].chosenAttack.attackName);
+            print("Strength: " + hero.strength + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+        }
+        playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
+        StartCoroutine(TextDelay());
+
         enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
         
-        playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
         hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
-        TextDelay();
+        
         UpdateHeroPanel();
     }
 
@@ -231,15 +245,15 @@ public class HeroStateMachine : MonoBehaviour
         heroStats = HeroPanelStats.GetComponent<HeroPanelStats>();
         
         heroName.heroName.text = hero.name;
-        heroStats.heroHP.text = hero.curHP + "/" + hero.baseHP;
-        heroStats.heroMP.text = hero.curMP + "/" + hero.baseMP;
+        heroStats.heroHP.text = hero.curHP + "/" + hero.maxHP;
+        heroStats.heroMP.text = hero.curMP + "/" + hero.maxMP;
         ProgressBar = heroStats.progressBar;
     }
 
     void UpdateHeroPanel()
     {
-        heroStats.heroHP.text = hero.curHP + "/" + hero.baseHP;
-        heroStats.heroMP.text = hero.curMP + "/" + hero.baseMP;
+        heroStats.heroHP.text = hero.curHP + "/" + hero.maxHP;
+        heroStats.heroMP.text = hero.curMP + "/" + hero.maxMP;
     }
 }
 
