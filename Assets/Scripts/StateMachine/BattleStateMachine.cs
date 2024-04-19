@@ -223,7 +223,7 @@ public class BattleStateMachine : MonoBehaviour
 
             button.enemyPrefab = enemy;
 
-            newButton.transform.SetParent(spacer);
+            newButton.transform.SetParent(spacer, false);
             enemyButtons.Add(newButton);
         }
     }

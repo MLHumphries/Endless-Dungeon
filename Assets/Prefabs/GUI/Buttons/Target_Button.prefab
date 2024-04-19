@@ -91,8 +91,8 @@ GameObject:
   - component: {fileID: 871811400868500284}
   - component: {fileID: 6728958502396793444}
   - component: {fileID: 1395195585639634490}
-  - component: {fileID: 1307205503653500963}
-  - component: {fileID: 5181123828669025540}
+  - component: {fileID: -7962094783472417680}
+  - component: {fileID: -6030859919238380981}
   - component: {fileID: 4728778219352325590}
   - component: {fileID: -164349595721788132}
   m_Layer: 5
@@ -216,7 +216,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1307205503653500963
+--- !u!114 &-7962094783472417680
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
---- !u!114 &5181123828669025540
+--- !u!114 &-6030859919238380981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

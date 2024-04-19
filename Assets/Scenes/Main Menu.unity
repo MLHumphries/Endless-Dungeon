@@ -190,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This project is the ground work for a cooldown-based combat system. While
+  m_Text: This project is the ground work for an active-time combat system. While
     not fleshed out, it has been designed to be expanded upon.
 --- !u!222 &320079639
 CanvasRenderer:
