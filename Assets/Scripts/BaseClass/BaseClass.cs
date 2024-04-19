@@ -6,17 +6,18 @@ public class BaseClass
 {
     public string name;
 
-    public float baseHP;
+    public float maxHP;
     public float curHP;
 
-    public float baseMP;
+    public float maxMP;
     public float curMP;
 
-    public float baseATK;
-    public float curATK;
-
-    public float baseDEF;
-    public float curDEF;
+    public int strength;
+    public int defense;
+    public int speed;
+    public int intellect;
+    //public int dexterity;
+    public int luck;
 
     public List<BaseAttack> attacks = new List<BaseAttack>();
     

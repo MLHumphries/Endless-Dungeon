@@ -13,7 +13,7 @@ public class HeroStateMachine : MonoBehaviour
     public GameObject enemyToAttack;
 
     private bool actionStarted = false;
-    public bool isDefending;
+    public bool isDefending = false;
 
     private Vector3 startPosition;
     private float animSpeed = 10f;
@@ -32,8 +32,8 @@ public class HeroStateMachine : MonoBehaviour
 
     public TurnState currentState;
 
-    private float cur_Cooldown = 0f;
-    private float max_Cooldown = 4f;
+    private float curCooldown = 0f;
+    private float maxCooldown = 4f;
     private Image ProgressBar;
 
     private bool alive = true;
@@ -51,10 +51,11 @@ public class HeroStateMachine : MonoBehaviour
         CreateHeroPanel();
 
         startPosition = transform.position;
-        cur_Cooldown = Random.Range(0f, 2.5f);
+        curCooldown = Random.Range(0f, 2.5f);
         selector.SetActive(false);
         BSM = GameObject.Find("GameManager").GetComponent<BattleStateMachine>();
         currentState = TurnState.Processing;
+        maxCooldown = maxCooldown - (hero.speed / 100f);
     }
 	
 	
@@ -129,11 +130,11 @@ public class HeroStateMachine : MonoBehaviour
 
     void UpdateProgressBar()
     {
-        cur_Cooldown = cur_Cooldown + Time.deltaTime;
-        float calc_Cooldown = cur_Cooldown / max_Cooldown;
-        ProgressBar.transform.localScale = new Vector3(Mathf.Clamp(calc_Cooldown, 0, 1), ProgressBar.transform.localScale.y, ProgressBar.transform.localScale.z);
+        curCooldown = curCooldown + Time.deltaTime;
+        float calcCooldown = curCooldown / maxCooldown;
+        ProgressBar.transform.localScale = new Vector3(Mathf.Clamp(calcCooldown, 0, 1), ProgressBar.transform.localScale.y, ProgressBar.transform.localScale.z);
 
-        if (cur_Cooldown >= max_Cooldown)
+        if (curCooldown >= maxCooldown)
         {
             currentState = TurnState.AddToList;
         }
@@ -172,7 +173,7 @@ public class HeroStateMachine : MonoBehaviour
         if(BSM.battleState != BattleStateMachine.PerformAction.Win && BSM.battleState != BattleStateMachine.PerformAction.Lose)
         {
             BSM.battleState = BattleStateMachine.PerformAction.Wait;
-            cur_Cooldown = 0f;
+            curCooldown = 0f;
             currentState = TurnState.Processing;
         }
         else
@@ -213,14 +214,28 @@ public class HeroStateMachine : MonoBehaviour
     }
     void DoDamage()
     {
-        HandleTurns heroAttack = new HandleTurns();
-        //Debug.Log(BSM.PerformList[0].chosenAttack.attackDamage + " " + hero.curATK);
-        float calc_damage = hero.curATK + BSM.PerformList[0].chosenAttack.attackDamage;
+        //HandleTurns heroAttack = new HandleTurns();
+        float calc_damage;
+
+        if (BSM.PerformList[0].chosenAttack.attackCost > 0)
+        {
+            calc_damage = hero.intellect + BSM.PerformList[0].chosenAttack.attackDamage;
+            print(BSM.PerformList[0].chosenAttack.attackName);
+            print("Intellect: " + hero.intellect + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+        }
+        else
+        {
+            calc_damage = hero.strength + BSM.PerformList[0].chosenAttack.attackDamage;
+            print(BSM.PerformList[0].chosenAttack.attackName);
+            print("Strength: " + hero.strength + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+        }
+        playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
+        StartCoroutine(TextDelay());
+
         enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
         
-        playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
         hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
-        TextDelay();
+        
         UpdateHeroPanel();
     }
 
@@ -230,15 +245,15 @@ public class HeroStateMachine : MonoBehaviour
         heroStats = HeroPanelStats.GetComponent<HeroPanelStats>();
         
         heroName.heroName.text = hero.name;
-        heroStats.heroHP.text = hero.curHP + "/" + hero.baseHP;
-        heroStats.heroMP.text = hero.curMP + "/" + hero.baseMP;
+        heroStats.heroHP.text = hero.curHP + "/" + hero.maxHP;
+        heroStats.heroMP.text = hero.curMP + "/" + hero.maxMP;
         ProgressBar = heroStats.progressBar;
     }
 
     void UpdateHeroPanel()
     {
-        heroStats.heroHP.text = hero.curHP + "/" + hero.baseHP;
-        heroStats.heroMP.text = hero.curMP + "/" + hero.baseMP;
+        heroStats.heroHP.text = hero.curHP + "/" + hero.maxHP;
+        heroStats.heroMP.text = hero.curMP + "/" + hero.maxMP;
     }
 }
 
