@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 
-public class BattleStateMachine : MonoBehaviour
+public class BattleStateMachine : MonoBehaviour, IPointerExitHandler
 {
     public enum PerformAction
     {
@@ -56,7 +57,7 @@ public class BattleStateMachine : MonoBehaviour
     private HandleTurns heroChoice;
 
     public Text playerUIText;
-    public Text enemyUIText;
+    public Text attackUIText;
     private bool winGame;
 
 
@@ -86,7 +87,7 @@ public class BattleStateMachine : MonoBehaviour
         enemySelectPanel.SetActive(false);
         magicPanel.SetActive(false);
         ClearPlayerUIText();
-        enemyUIText.text = " ";
+        attackUIText.text = " ";
 
         winGame = false;
         EnemyButtons();
@@ -268,6 +269,18 @@ public class BattleStateMachine : MonoBehaviour
                 GameObject physicalButton = Instantiate(physicalAttackButton) as GameObject;
                 Text physicalAttackButtonText = physicalAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
                 physicalAttackButtonText.text = physicalAttack.attackName;
+
+                //Event system for dynamic menu dialogue at runtime
+                EventTrigger trigger = physicalButton.GetComponent<EventTrigger>();
+                if(trigger == null)
+                {
+                    trigger = physicalButton.AddComponent<EventTrigger>();
+                }
+                EventTrigger.Entry entry = new EventTrigger.Entry();
+                entry.eventID = EventTriggerType.PointerEnter;
+                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData) data, physicalAttack); });
+                trigger.triggers.Add(entry);
+                
                 AttackButton ATB = physicalButton.GetComponent<AttackButton>();
                 ATB.physicalAttackToPeform = physicalAttack;
                 physicalButton.transform.SetParent(attackSpacer, false);
@@ -287,6 +300,17 @@ public class BattleStateMachine : MonoBehaviour
                 GameObject MagicButton = Instantiate(magicButton) as GameObject;
                 Text magicButtonText = magicButton.transform.Find("Text").gameObject.GetComponent<Text>();
                 magicButtonText.text = magicAttack.attackName;
+                //Event system for dynamic menu dialogue at runtime
+                EventTrigger trigger = MagicButton.GetComponent<EventTrigger>();
+                if (trigger == null)
+                {
+                    trigger = MagicButton.AddComponent<EventTrigger>();
+                }
+                EventTrigger.Entry entry = new EventTrigger.Entry();
+                entry.eventID = EventTriggerType.PointerEnter;
+                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, magicAttack); });
+                trigger.triggers.Add(entry);
+
                 AttackButton ATB = MagicButton.GetComponent<AttackButton>();
                 ATB.magicAttackToPerform = magicAttack;
                 MagicButton.transform.SetParent(magicSpacer, false);
@@ -298,6 +322,7 @@ public class BattleStateMachine : MonoBehaviour
             magicAttackButton.GetComponent<Button>().interactable = false;
         }
     }
+
 
     void ClearAttackPanel()
     {
@@ -331,7 +356,7 @@ public class BattleStateMachine : MonoBehaviour
         heroChoice.type = "Hero";
 
         heroChoice.chosenAttack = attack;
-        playerUIText.text = heroChoice.attackerName + " will use " + heroChoice.chosenAttack.attackName + " and do " + heroChoice.chosenAttack.attackDamage + " damage.";
+        //attackUIText.text = heroChoice.attackerName + " will use " + heroChoice.chosenAttack.attackName + " and do " + heroChoice.chosenAttack.attackDamage + " damage.";
             //heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
         physicalAttackPanel.SetActive(false);
         enemySelectPanel.SetActive(true);
@@ -351,7 +376,7 @@ public class BattleStateMachine : MonoBehaviour
         heroChoice.type = "Hero";
 
         heroChoice.chosenAttack = magicAttack;
-        playerUIText.text = heroChoice.attackerName + " will use " + heroChoice.chosenAttack.attackName + " and do " + heroChoice.chosenAttack.attackDamage + " damage.";
+        //attackUIText.text = heroChoice.attackerName + " will use " + heroChoice.chosenAttack.attackName + " and do " + heroChoice.chosenAttack.attackDamage + " damage.";
         magicPanel.SetActive(false);
         enemySelectPanel.SetActive(true);
     }
@@ -387,6 +412,7 @@ public class BattleStateMachine : MonoBehaviour
     public void SetPlayerUIText(string msg)
     {
         playerUIText.text = msg;
+        //return (playerUIText);
     }
     public void ClearPlayerUIText()
     {
@@ -411,4 +437,13 @@ public class BattleStateMachine : MonoBehaviour
         }
     }
 
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SetPlayerUIText("");
+    }
+
+    public void OnPointerEnterDel(PointerEventData eventData, BaseAttack attack)
+    {
+        SetPlayerUIText(HeroesToManage[0].name + " will use " + attack.attackName + " and do " + attack.attackDamage + " damage.");
+    }
 }

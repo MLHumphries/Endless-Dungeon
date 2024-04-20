@@ -551,7 +551,7 @@ MonoBehaviour:
     type: 3}
   HeroesToManage: []
   playerUIText: {fileID: 383922124}
-  enemyUIText: {fileID: 197159508}
+  attackUIText: {fileID: 197159508}
 --- !u!4 &436735662
 Transform:
   m_ObjectHideFlags: 0
@@ -3599,32 +3599,32 @@ PrefabInstance:
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.2693353
+      value: 0.2671124
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -1
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8593668
+      value: 0.3675
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.30004883
+      value: -1.4700012
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2.9000244
+      value: 0.55999756
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
@@ -3699,7 +3699,7 @@ PrefabInstance:
     - target: {fileID: 1923347372493760938, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_Name
-      value: EnemyUIText
+      value: AttackUIText
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1488929312821886765, guid: f08b2baa97e797e4fb5448ec5f30b831, type: 3}

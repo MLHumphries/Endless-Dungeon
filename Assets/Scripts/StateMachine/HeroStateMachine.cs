@@ -107,14 +107,18 @@ public class HeroStateMachine : MonoBehaviour
                         //remove item from perform list
                         for (int i = 0; i < BSM.PerformList.Count; i++)
                         {
-                            if (BSM.PerformList[i].attackGameObject == this.gameObject)
+                            if(i != 0)
                             {
-                                BSM.PerformList.Remove(BSM.PerformList[i]);
+                                if (BSM.PerformList[i].attackGameObject == this.gameObject)
+                                {
+                                    BSM.PerformList.Remove(BSM.PerformList[i]);
+                                }
+                                else if (BSM.PerformList[i].attackTarget == this.gameObject)
+                                {
+                                    BSM.PerformList[i].attackTarget = BSM.HeroInGame[Random.Range(0, BSM.HeroInGame.Count)];
+                                }
                             }
-                            else if (BSM.PerformList[i].attackTarget == this.gameObject)
-                            {
-                                BSM.PerformList[i].attackTarget = BSM.HeroInGame[Random.Range(0, BSM.HeroInGame.Count)];
-                            }
+                            
                         }
                     }
                     
