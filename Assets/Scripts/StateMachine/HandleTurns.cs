@@ -8,7 +8,7 @@ public class HandleTurns
     public string attackerName;
     public string type;
     public GameObject attackGameObject;
-    public GameObject attackerTarget;
+    public GameObject attackTarget;
 
     //which attack is performed
     public BaseAttack chosenAttack;

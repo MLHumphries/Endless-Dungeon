@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 
@@ -54,6 +55,9 @@ public class BattleStateMachine : MonoBehaviour
 
     public List<GameObject> HeroesToManage = new List<GameObject>();
     private HandleTurns heroChoice;
+
+    public Text playerUIText;
+    public Text attackUIText;
     private bool winGame;
 
 
@@ -82,6 +86,8 @@ public class BattleStateMachine : MonoBehaviour
         attackPanel.SetActive (false);
         enemySelectPanel.SetActive(false);
         magicPanel.SetActive(false);
+        ClearPlayerUIText();
+        attackUIText.text = " ";
 
         winGame = false;
         EnemyButtons();
@@ -104,29 +110,30 @@ public class BattleStateMachine : MonoBehaviour
                 if(PerformList[0].type == "Enemy")
                 {
                     EnemyStateMachine ESM = performer.GetComponent<EnemyStateMachine>();
-                    ESM.HeroToAttack = PerformList[0].attackerTarget;
+                    ESM.HeroToAttack = PerformList[0].attackTarget;
                     ESM.currentState = EnemyStateMachine.TurnState.Action;
                     for (int i = 0; i < HeroInGame.Count; i++)
                     {
-                        if (PerformList[0].attackerTarget == HeroInGame[i])
+                        if (PerformList[0].attackTarget == HeroInGame[i])
                         {
-                            ESM.HeroToAttack = PerformList[0].attackerTarget;
+                            ESM.HeroToAttack = PerformList[0].attackTarget;
                             ESM.currentState = EnemyStateMachine.TurnState.Action;
-                            break;
+                            //break;
                         }
                         else
                         {
-                            PerformList[0].attackerTarget = HeroInGame[Random.Range(0, HeroInGame.Count)];
-                            ESM.HeroToAttack = PerformList[0].attackerTarget;
+                            PerformList[0].attackTarget = HeroInGame[Random.Range(0, HeroInGame.Count)];
+                            ESM.HeroToAttack = PerformList[0].attackTarget;
                             ESM.currentState = EnemyStateMachine.TurnState.Action;
                         }
+                        
                     }
 
                 }
                 if (PerformList[0].type == "Hero")
                 {
                     HeroStateMachine HSM = performer.GetComponent<HeroStateMachine>();
-                    HSM.enemyToAttack = PerformList[0].attackerTarget;
+                    HSM.enemyToAttack = PerformList[0].attackTarget;
                     HSM.currentState = HeroStateMachine.TurnState.Action;
                 }
                 battleState = PerformAction.PerformAction;
@@ -187,7 +194,7 @@ public class BattleStateMachine : MonoBehaviour
 
                 break;
             case (HeroGUI.Defending):
-                Delay();
+                StartCoroutine(Delay());
                 heroInput = HeroGUI.Done;
                 break;
 
@@ -261,6 +268,18 @@ public class BattleStateMachine : MonoBehaviour
                 GameObject physicalButton = Instantiate(physicalAttackButton) as GameObject;
                 Text physicalAttackButtonText = physicalAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
                 physicalAttackButtonText.text = physicalAttack.attackName;
+
+                //Event system for dynamic menu dialogue at runtime
+                EventTrigger trigger = physicalButton.GetComponent<EventTrigger>();
+                if(trigger == null)
+                {
+                    trigger = physicalButton.AddComponent<EventTrigger>();
+                }
+                EventTrigger.Entry entry = new EventTrigger.Entry();
+                entry.eventID = EventTriggerType.PointerEnter;
+                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData) data, physicalAttack); });
+                trigger.triggers.Add(entry);
+                
                 AttackButton ATB = physicalButton.GetComponent<AttackButton>();
                 ATB.physicalAttackToPeform = physicalAttack;
                 physicalButton.transform.SetParent(attackSpacer, false);
@@ -280,6 +299,17 @@ public class BattleStateMachine : MonoBehaviour
                 GameObject MagicButton = Instantiate(magicButton) as GameObject;
                 Text magicButtonText = magicButton.transform.Find("Text").gameObject.GetComponent<Text>();
                 magicButtonText.text = magicAttack.attackName;
+                //Event system for dynamic menu dialogue at runtime
+                EventTrigger trigger = MagicButton.GetComponent<EventTrigger>();
+                if (trigger == null)
+                {
+                    trigger = MagicButton.AddComponent<EventTrigger>();
+                }
+                EventTrigger.Entry entry = new EventTrigger.Entry();
+                entry.eventID = EventTriggerType.PointerEnter;
+                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, magicAttack); });
+                trigger.triggers.Add(entry);
+
                 AttackButton ATB = MagicButton.GetComponent<AttackButton>();
                 ATB.magicAttackToPerform = magicAttack;
                 MagicButton.transform.SetParent(magicSpacer, false);
@@ -291,6 +321,7 @@ public class BattleStateMachine : MonoBehaviour
             magicAttackButton.GetComponent<Button>().interactable = false;
         }
     }
+
 
     void ClearAttackPanel()
     {
@@ -305,7 +336,7 @@ public class BattleStateMachine : MonoBehaviour
         atkBtns.Clear();
     }
 
-    //Attack button
+    //Attack button for testing
     public void Input1() 
     {
         heroChoice.attackerName = HeroesToManage[0].name;
@@ -316,6 +347,7 @@ public class BattleStateMachine : MonoBehaviour
         enemySelectPanel.SetActive(true);
     }
 
+    //Choosing physical attack if possible
     public void SelectPhysicalAttack(BaseAttack attack)
     {
         heroChoice.attackerName = HeroesToManage[0].name;
@@ -324,12 +356,13 @@ public class BattleStateMachine : MonoBehaviour
 
         heroChoice.chosenAttack = attack;
         physicalAttackPanel.SetActive(false);
+        ClearPlayerUIText();
         enemySelectPanel.SetActive(true);
     }
     //Enemy selector
     public void SelectEnemy(GameObject enemy) 
     {
-        heroChoice.attackerTarget = enemy;
+        heroChoice.attackTarget = enemy;
         heroInput = HeroGUI.Done;
     }
     
@@ -342,6 +375,7 @@ public class BattleStateMachine : MonoBehaviour
 
         heroChoice.chosenAttack = magicAttack;
         magicPanel.SetActive(false);
+        ClearPlayerUIText();
         enemySelectPanel.SetActive(true);
     }
     //Switching to magic attack menu
@@ -358,18 +392,28 @@ public class BattleStateMachine : MonoBehaviour
         physicalAttackPanel.SetActive(true);
     }
 
-    public void Defend()
+    public void Defend(BaseAttack defend)
     {
         bool isDefending = true;
         heroInput = HeroGUI.Defending;
         heroChoice.attackerName = HeroesToManage[0].name;
         heroChoice.attackGameObject = HeroesToManage[0];
         heroChoice.type = "Hero";
-        heroChoice.chosenAttack = HeroesToManage[0].GetComponent<HeroStateMachine>().hero.defend;
-        heroChoice.attackerTarget = HeroesToManage[0];
+        heroChoice.chosenAttack = defend;
+        heroChoice.attackTarget = HeroesToManage[0];
 
         HeroesToManage[0].GetComponent<HeroStateMachine>().isDefending = isDefending;
         attackPanel.SetActive(false);
+    }
+
+
+    public void SetPlayerUIText(string msg)
+    {
+        playerUIText.text = msg;
+    }
+    public void ClearPlayerUIText()
+    {
+        playerUIText.text = " ";
     }
 
     private IEnumerator Delay()
@@ -390,4 +434,8 @@ public class BattleStateMachine : MonoBehaviour
         }
     }
 
+    public void OnPointerEnterDel(PointerEventData eventData, BaseAttack attack)
+    {
+        SetPlayerUIText(HeroesToManage[0].name + " will use " + attack.attackName + " and do " + attack.attackDamage + " damage.");
+    }
 }
