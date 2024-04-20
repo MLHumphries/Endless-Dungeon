@@ -47,6 +47,8 @@ public class HeroStateMachine : MonoBehaviour
 
     void Start ()
     {
+        hero.curHP = hero.maxHP;
+        hero.curMP = hero.maxMP;
         //create panel and fill in info
         CreateHeroPanel();
 
@@ -75,6 +77,7 @@ public class HeroStateMachine : MonoBehaviour
                 break;
 
             case (TurnState.Waiting):
+                
                 break;
 
             case (TurnState.Action):
@@ -108,9 +111,9 @@ public class HeroStateMachine : MonoBehaviour
                             {
                                 BSM.PerformList.Remove(BSM.PerformList[i]);
                             }
-                            else if (BSM.PerformList[i].attackerTarget == this.gameObject)
+                            else if (BSM.PerformList[i].attackTarget == this.gameObject)
                             {
-                                BSM.PerformList[i].attackerTarget = BSM.HeroInGame[Random.Range(0, BSM.HeroInGame.Count)];
+                                BSM.PerformList[i].attackTarget = BSM.HeroInGame[Random.Range(0, BSM.HeroInGame.Count)];
                             }
                         }
                     }
@@ -141,7 +144,6 @@ public class HeroStateMachine : MonoBehaviour
     }
     private IEnumerator TimeForAction()
     {
-        playerUIText.text = "";
         if (actionStarted)
         {
             yield break;
@@ -156,9 +158,9 @@ public class HeroStateMachine : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-
+        playerUIText.text = "";
         //do damage
-        if(!isDefending)
+        if (!isDefending)
         {
             DoDamage();
         }
@@ -198,10 +200,7 @@ public class HeroStateMachine : MonoBehaviour
     
     public void TakeDamage(float getDamageAmount)
     {
-        if (isDefending == true)
-        {
-            playerUIText.text = heroName.heroName.text + " is defending.";
-        }
+        //TODO Defense check here instead of ESM
         hero.curHP -= getDamageAmount;
         if (hero.curHP <= 0)
         {
@@ -229,10 +228,13 @@ public class HeroStateMachine : MonoBehaviour
             print(BSM.PerformList[0].chosenAttack.attackName);
             print("Strength: " + hero.strength + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
         }
-        playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
-        StartCoroutine(TextDelay());
+        //playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
+        //StartCoroutine(TextDelay());
 
-        enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
+        if(enemyToAttack != this.gameObject)
+        {
+            enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
+        }
         
         hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
         

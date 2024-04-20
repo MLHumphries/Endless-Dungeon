@@ -8,7 +8,6 @@ public class EnemyStateMachine : MonoBehaviour
     private BattleStateMachine BSM;
     public BaseEnemy enemy;
     public GameObject selector;
-    public Text enemyAttackText;
     public Text enemyHealthUI;
 
     public enum TurnState
@@ -89,9 +88,9 @@ public class EnemyStateMachine : MonoBehaviour
                             {
                                 BSM.PerformList.Remove(BSM.PerformList[i]);
                             }
-                            else if (BSM.PerformList[i].attackerTarget == this.gameObject)
+                            else if (BSM.PerformList[i].attackTarget == this.gameObject)
                             {
-                                BSM.PerformList[i].attackerTarget = BSM.EnemyInGame[Random.Range(0, BSM.EnemyInGame.Count)];
+                                BSM.PerformList[i].attackTarget = BSM.EnemyInGame[Random.Range(0, BSM.EnemyInGame.Count)];
                             }
                         }
                     }
@@ -126,7 +125,7 @@ public class EnemyStateMachine : MonoBehaviour
         myAttack.attackerName = enemy.name;
         myAttack.type = "Enemy";
         myAttack.attackGameObject = this.gameObject;
-        myAttack.attackerTarget = BSM.HeroInGame[Random.Range(0, BSM.HeroInGame.Count)];
+        myAttack.attackTarget = BSM.HeroInGame[Random.Range(0, BSM.HeroInGame.Count)];
 
         int num = Random.Range(0, enemy.attacks.Count);
         
@@ -160,7 +159,7 @@ public class EnemyStateMachine : MonoBehaviour
             yield return null;
         }
 
-        enemyAttackText.text = "";
+        //enemyAttackText.text = "";
 
         BSM.PerformList.RemoveAt(0);
 
@@ -186,7 +185,7 @@ public class EnemyStateMachine : MonoBehaviour
         float calcDamage;
         if(HSM.isDefending)
         {
-            calcDamage = (enemy.strength + BSM.PerformList[0].chosenAttack.attackDamage) - (HSM.hero.defense / (enemy.strength + BSM.PerformList[0].chosenAttack.attackDamage));
+            calcDamage = (enemy.strength + BSM.PerformList[0].chosenAttack.attackDamage) - Mathf.Round((HSM.hero.defense / (enemy.strength + BSM.PerformList[0].chosenAttack.attackDamage)));
             print(BSM.PerformList[0].chosenAttack.attackName + BSM.PerformList[0].chosenAttack.attackDamage);
             print(calcDamage);
         }
@@ -195,8 +194,8 @@ public class EnemyStateMachine : MonoBehaviour
             calcDamage = enemy.strength + BSM.PerformList[0].chosenAttack.attackDamage;
         }
         HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
-        enemyAttackText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calcDamage + " damage";
-        StartCoroutine(TextDelay());
+        //enemyAttackText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calcDamage + " damage";
+        //StartCoroutine(TextDelay());
     }
     public void TakeDamage(float getDamageAmount)
     {
@@ -212,7 +211,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     private IEnumerator TextDelay()
     {
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(2.0f);
     }
 
     //void UpdateEnemyHealth()
