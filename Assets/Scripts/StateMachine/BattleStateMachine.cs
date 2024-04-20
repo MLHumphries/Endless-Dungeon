@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 
-public class BattleStateMachine : MonoBehaviour, IPointerExitHandler
+public class BattleStateMachine : MonoBehaviour
 {
     public enum PerformAction
     {
@@ -243,7 +243,6 @@ public class BattleStateMachine : MonoBehaviour, IPointerExitHandler
         HeroesToManage[0].transform.Find("Selector").gameObject.SetActive(false);
         HeroesToManage.RemoveAt(0);
         heroInput = HeroGUI.Activate;
-        //playerUIText.text = " ";
     }
 
     void CreateAttackButtons()
@@ -356,9 +355,8 @@ public class BattleStateMachine : MonoBehaviour, IPointerExitHandler
         heroChoice.type = "Hero";
 
         heroChoice.chosenAttack = attack;
-        //attackUIText.text = heroChoice.attackerName + " will use " + heroChoice.chosenAttack.attackName + " and do " + heroChoice.chosenAttack.attackDamage + " damage.";
-            //heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
         physicalAttackPanel.SetActive(false);
+        ClearPlayerUIText();
         enemySelectPanel.SetActive(true);
     }
     //Enemy selector
@@ -376,8 +374,8 @@ public class BattleStateMachine : MonoBehaviour, IPointerExitHandler
         heroChoice.type = "Hero";
 
         heroChoice.chosenAttack = magicAttack;
-        //attackUIText.text = heroChoice.attackerName + " will use " + heroChoice.chosenAttack.attackName + " and do " + heroChoice.chosenAttack.attackDamage + " damage.";
         magicPanel.SetActive(false);
+        ClearPlayerUIText();
         enemySelectPanel.SetActive(true);
     }
     //Switching to magic attack menu
@@ -412,7 +410,6 @@ public class BattleStateMachine : MonoBehaviour, IPointerExitHandler
     public void SetPlayerUIText(string msg)
     {
         playerUIText.text = msg;
-        //return (playerUIText);
     }
     public void ClearPlayerUIText()
     {
@@ -435,11 +432,6 @@ public class BattleStateMachine : MonoBehaviour, IPointerExitHandler
         {
             SceneManager.LoadScene("Game Over");
         }
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        SetPlayerUIText("");
     }
 
     public void OnPointerEnterDel(PointerEventData eventData, BaseAttack attack)
