@@ -645,7 +645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037298249787104, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4457225060211468, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_LocalPosition.x
@@ -966,7 +966,7 @@ PrefabInstance:
         type: 3}
       propertyPath: hero.attacks.Array.data[0]
       value: 
-      objectReference: {fileID: 114944571292154194, guid: 56642c173777aa94886205840d805af4,
+      objectReference: {fileID: 114682628043677320, guid: e0d0153cfb4de5b4bb62d269f056949b,
         type: 3}
     - target: {fileID: 114015842548285284, guid: 2734c50b899b1034e8d6bebe19382128,
         type: 3}
@@ -977,7 +977,7 @@ PrefabInstance:
         type: 3}
       propertyPath: hero.attacks.Array.data[1]
       value: 
-      objectReference: {fileID: 114682628043677320, guid: e0d0153cfb4de5b4bb62d269f056949b,
+      objectReference: {fileID: 114944571292154194, guid: 56642c173777aa94886205840d805af4,
         type: 3}
     - target: {fileID: 114015842548285284, guid: 2734c50b899b1034e8d6bebe19382128,
         type: 3}
@@ -3619,7 +3619,7 @@ PrefabInstance:
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.4700012
+      value: -1.4699707
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}

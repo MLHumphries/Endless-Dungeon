@@ -49,7 +49,7 @@ public class BattleStateMachine : MonoBehaviour
     public Transform attackSpacer;
     public GameObject actionButton;
     public GameObject physicalAttackButton;
-    public GameObject magicButton;
+    public GameObject magicAttackButton;
     private List<GameObject> atkBtns = new List<GameObject>();
     private List<GameObject> enemyButtons = new List<GameObject>();
 
@@ -247,14 +247,14 @@ public class BattleStateMachine : MonoBehaviour
 
     void CreateAttackButtons()
     {
-        GameObject attackButton = Instantiate(actionButton) as GameObject;
+        GameObject attackButton = Instantiate(physicalAttackButton) as GameObject;
         Text attackButtonText = attackButton.transform.Find("Text").gameObject.GetComponent<Text>();
         attackButtonText.text = "Attack";
         attackButton.GetComponent<Button>().onClick.AddListener(() => OpenPhysicalAttacksMenu());
         attackButton.transform.SetParent(actionSpacer, false);
         atkBtns.Add(attackButton);
 
-        GameObject magicAttackButton = Instantiate(actionButton) as GameObject;
+        GameObject magicButton = Instantiate(magicAttackButton) as GameObject;
         Text magicAttackButtonText = magicAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
         magicAttackButtonText.text = "Magic";
         magicAttackButton.GetComponent<Button>().onClick.AddListener(() => OpenMagicAttacksMenu());
@@ -263,29 +263,31 @@ public class BattleStateMachine : MonoBehaviour
 
         if (HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks.Count > 0)
         {
-            foreach (BaseAttack physicalAttack in HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks)
+            for(int i = 0; i < HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks.Count; i++)
             {
-                GameObject physicalButton = Instantiate(physicalAttackButton) as GameObject;
-                Text physicalAttackButtonText = physicalAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
-                physicalAttackButtonText.text = physicalAttack.attackName;
+                BaseAttack physicalAttack = HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks[i];
+                GameObject tempAttackButton = Instantiate(physicalAttackButton) as GameObject;
 
+                //Prepares text on tempAttackButtins
+                Button button = tempAttackButton.GetComponent<Button>();
+                button.GetComponentInChildren<Text>().text = physicalAttack.attackName;
+                
                 //Event system for dynamic menu dialogue at runtime
-                EventTrigger trigger = physicalButton.GetComponent<EventTrigger>();
-                if(trigger == null)
+                EventTrigger trigger = tempAttackButton.GetComponent<EventTrigger>();
+                if (trigger == null)
                 {
-                    trigger = physicalButton.AddComponent<EventTrigger>();
+                    trigger = tempAttackButton.AddComponent<EventTrigger>();
                 }
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.PointerEnter;
-                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData) data, physicalAttack); });
+                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, physicalAttack); });
                 trigger.triggers.Add(entry);
-                
-                AttackButton ATB = physicalButton.GetComponent<AttackButton>();
-                ATB.physicalAttackToPeform = physicalAttack;
-                physicalButton.transform.SetParent(attackSpacer, false);
-                atkBtns.Add(physicalButton);
-            }
 
+                AttackButton ATB = tempAttackButton.GetComponent<AttackButton>();
+                ATB.physicalAttackToPeform = physicalAttack;
+                tempAttackButton.transform.SetParent(attackSpacer, false);
+                atkBtns.Add(tempAttackButton);
+            }
         }
         else
         {
@@ -294,26 +296,30 @@ public class BattleStateMachine : MonoBehaviour
 
         if (HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks.Count > 0)
         {
-            foreach (BaseAttack magicAttack in HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks)
+            for (int i = 0; i < HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks.Count; i++)
             {
-                GameObject MagicButton = Instantiate(magicButton) as GameObject;
-                Text magicButtonText = magicButton.transform.Find("Text").gameObject.GetComponent<Text>();
-                magicButtonText.text = magicAttack.attackName;
+                BaseAttack magicAttack = HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks[i];
+                GameObject tempMagicButton = Instantiate(this.magicAttackButton) as GameObject;
+
+                //Prepares text on tempMagicButtins
+                Button button = tempMagicButton.GetComponent<Button>();
+                button.GetComponentInChildren<Text>().text = magicAttack.attackName;
+                
                 //Event system for dynamic menu dialogue at runtime
-                EventTrigger trigger = MagicButton.GetComponent<EventTrigger>();
+                EventTrigger trigger = tempMagicButton.GetComponent<EventTrigger>();
                 if (trigger == null)
                 {
-                    trigger = MagicButton.AddComponent<EventTrigger>();
+                    trigger = tempMagicButton.AddComponent<EventTrigger>();
                 }
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.PointerEnter;
                 entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, magicAttack); });
                 trigger.triggers.Add(entry);
 
-                AttackButton ATB = MagicButton.GetComponent<AttackButton>();
+                AttackButton ATB = tempMagicButton.GetComponent<AttackButton>();
                 ATB.magicAttackToPerform = magicAttack;
-                MagicButton.transform.SetParent(magicSpacer, false);
-                atkBtns.Add(MagicButton);
+                tempMagicButton.transform.SetParent(magicSpacer, false);
+                atkBtns.Add(tempMagicButton);
             }
         }
         else
