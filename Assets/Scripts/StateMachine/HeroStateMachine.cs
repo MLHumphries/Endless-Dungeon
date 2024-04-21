@@ -245,6 +245,7 @@ public class HeroStateMachine : MonoBehaviour
         UpdateHeroPanel();
     }
 
+
     void CreateHeroPanel()
     {
         heroName = HeroPanelName.GetComponent<HeroPanelName>();

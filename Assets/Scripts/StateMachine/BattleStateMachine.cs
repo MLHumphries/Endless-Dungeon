@@ -50,6 +50,7 @@ public class BattleStateMachine : MonoBehaviour
     public GameObject actionButton;
     public GameObject physicalAttackButton;
     public GameObject magicAttackButton;
+    [SerializeField]
     private List<GameObject> atkBtns = new List<GameObject>();
     private List<GameObject> enemyButtons = new List<GameObject>();
 
@@ -194,7 +195,7 @@ public class BattleStateMachine : MonoBehaviour
 
                 break;
             case (HeroGUI.Defending):
-                StartCoroutine(Delay());
+                //StartCoroutine(Delay());
                 heroInput = HeroGUI.Done;
                 break;
 
@@ -259,8 +260,9 @@ public class BattleStateMachine : MonoBehaviour
         magicAttackButtonText.text = "Magic";
         magicAttackButton.GetComponent<Button>().onClick.AddListener(() => OpenMagicAttacksMenu());
         magicAttackButton.transform.SetParent(actionSpacer, false);
-        atkBtns.Add(magicAttackButton);
+        atkBtns.Add(magicButton);
 
+        HeroStateMachine tempHero = HeroesToManage[0].GetComponent<HeroStateMachine>();
         if (HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks.Count > 0)
         {
             for(int i = 0; i < HeroesToManage[0].GetComponent<HeroStateMachine>().hero.attacks.Count; i++)
@@ -280,7 +282,7 @@ public class BattleStateMachine : MonoBehaviour
                 }
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.PointerEnter;
-                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, physicalAttack); });
+                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, (tempHero.name + " will use " + physicalAttack.attackName + ".").ToString()); });
                 trigger.triggers.Add(entry);
 
                 AttackButton ATB = tempAttackButton.GetComponent<AttackButton>();
@@ -294,7 +296,7 @@ public class BattleStateMachine : MonoBehaviour
             attackButton.GetComponent<Button>().interactable = false;
         }
 
-        if (HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks.Count > 0)
+        if (tempHero.hero.magicAttacks.Count > 0)
         {
             for (int i = 0; i < HeroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks.Count; i++)
             {
@@ -313,7 +315,7 @@ public class BattleStateMachine : MonoBehaviour
                 }
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.PointerEnter;
-                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, magicAttack); });
+                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, (tempHero.name + " will use " + magicAttack.attackName + ".").ToString()); });
                 trigger.triggers.Add(entry);
 
                 AttackButton ATB = tempMagicButton.GetComponent<AttackButton>();
@@ -339,6 +341,7 @@ public class BattleStateMachine : MonoBehaviour
         {
             Destroy(atkBtn);
         }
+
         atkBtns.Clear();
     }
 
@@ -413,13 +416,23 @@ public class BattleStateMachine : MonoBehaviour
     }
 
 
-    public void SetPlayerUIText(string msg)
+    private void SetPlayerUIText(string msg)
     {
         playerUIText.text = msg;
     }
-    public void ClearPlayerUIText()
+    private void ClearPlayerUIText()
     {
         playerUIText.text = " ";
+    }
+
+    private void SetAttackUIText(string msg)
+    {
+        attackUIText.text = msg;
+    }
+
+    private void ClearAttackUIText()
+    {
+        attackUIText.text = " ";
     }
 
     private IEnumerator Delay()
@@ -440,8 +453,13 @@ public class BattleStateMachine : MonoBehaviour
         }
     }
 
-    public void OnPointerEnterDel(PointerEventData eventData, BaseAttack attack)
+    public void OnPointerEnterDel(PointerEventData eventData, string msg)
     {
-        SetPlayerUIText(HeroesToManage[0].name + " will use " + attack.attackName + " and do " + attack.attackDamage + " damage.");
+        SetPlayerUIText(msg);
+    }
+
+    public void OnPointerAttack(PointerEventData eventData, string msg)
+    {
+        SetAttackUIText(msg);
     }
 }

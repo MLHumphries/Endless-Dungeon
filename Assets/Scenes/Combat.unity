@@ -547,7 +547,7 @@ MonoBehaviour:
     type: 3}
   physicalAttackButton: {fileID: 2008113114548584135, guid: 9beca75362adadf4ca97e1e3c274fefa,
     type: 3}
-  magicButton: {fileID: 3377577521836942944, guid: 02452f8b36c256845b052a9282d1b80e,
+  magicAttackButton: {fileID: 3377577521836942944, guid: 02452f8b36c256845b052a9282d1b80e,
     type: 3}
   HeroesToManage: []
   playerUIText: {fileID: 383922124}
