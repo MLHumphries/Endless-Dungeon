@@ -162,12 +162,13 @@ public class HeroStateMachine : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        playerUIText.text = "";
+        float damage = 0;
         //do damage
         if (!isDefending)
         {
-            DoDamage();
+            damage = DoDamage();
         }
+        BSM.attackUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + damage + " damage.";
 
         Vector3 firstPosition = startPosition;
         while (MoveTowardsEnemy(startPosition))
@@ -215,16 +216,25 @@ public class HeroStateMachine : MonoBehaviour
         isDefending = false;
         UpdateHeroPanel();
     }
-    void DoDamage()
+    float DoDamage()
     {
         //HandleTurns heroAttack = new HandleTurns();
         float calc_damage;
 
         if (BSM.PerformList[0].chosenAttack.attackCost > 0)
         {
-            calc_damage = hero.intellect + BSM.PerformList[0].chosenAttack.attackDamage;
-            print(BSM.PerformList[0].chosenAttack.attackName);
-            print("Intellect: " + hero.intellect + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+            if (hero.curMP >= BSM.PerformList[0].chosenAttack.attackCost)
+            {
+                hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
+                calc_damage = hero.intellect + BSM.PerformList[0].chosenAttack.attackDamage;
+                print(BSM.PerformList[0].chosenAttack.attackName);
+                print("Intellect: " + hero.intellect + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+            }
+            else
+            {
+                calc_damage = 0;
+            }
+            
         }
         else
         {
@@ -239,10 +249,14 @@ public class HeroStateMachine : MonoBehaviour
         {
             enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
         }
-        
-        hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
-        
+        StoreDamage(calc_damage);
         UpdateHeroPanel();
+        return(calc_damage);
+    }
+
+    float StoreDamage(float val)
+    {
+        return val;
     }
 
 
