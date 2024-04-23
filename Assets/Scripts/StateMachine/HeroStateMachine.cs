@@ -167,8 +167,13 @@ public class HeroStateMachine : MonoBehaviour
         if (!isDefending)
         {
             damage = DoDamage();
+            BSM.attackUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + damage + " damage.";
         }
-        BSM.attackUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + damage + " damage.";
+        else
+        {
+            BSM.attackUIText.text = heroName.heroName.text + " is defending.";
+        }
+        
 
         Vector3 firstPosition = startPosition;
         while (MoveTowardsEnemy(startPosition))
@@ -249,14 +254,8 @@ public class HeroStateMachine : MonoBehaviour
         {
             enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_damage);
         }
-        StoreDamage(calc_damage);
         UpdateHeroPanel();
         return(calc_damage);
-    }
-
-    float StoreDamage(float val)
-    {
-        return val;
     }
 
 
