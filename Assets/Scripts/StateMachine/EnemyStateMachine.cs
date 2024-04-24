@@ -158,14 +158,13 @@ public class EnemyStateMachine : MonoBehaviour
         float damage = 0;
         damage = DoDamage();
         BSM.attackUIText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + damage + " damage.";
+        yield return new WaitForSeconds(0.5f);
         //animate back to start pos
         Vector3 firstPosition = startPosition;
         while (MoveTowardsEnemy(startPosition))
         {
             yield return null;
         }
-
-        //enemyAttackText.text = "";
 
         BSM.PerformList.RemoveAt(0);
 

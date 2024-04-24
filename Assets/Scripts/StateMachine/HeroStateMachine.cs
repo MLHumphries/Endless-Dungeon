@@ -173,7 +173,8 @@ public class HeroStateMachine : MonoBehaviour
         {
             BSM.attackUIText.text = heroName.heroName.text + " is defending.";
         }
-        
+        yield return new WaitForSeconds(0.5f);
+
 
         Vector3 firstPosition = startPosition;
         while (MoveTowardsEnemy(startPosition))
@@ -247,8 +248,6 @@ public class HeroStateMachine : MonoBehaviour
             print(BSM.PerformList[0].chosenAttack.attackName);
             print("Strength: " + hero.strength + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
         }
-        //playerUIText.text = heroName.heroName.text + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calc_damage + " damage";
-        //StartCoroutine(TextDelay());
 
         if(enemyToAttack != this.gameObject)
         {
