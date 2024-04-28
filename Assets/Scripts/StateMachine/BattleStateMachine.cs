@@ -200,6 +200,7 @@ public class BattleStateMachine : MonoBehaviour
                 break;
             case (HeroGUI.Defending):
                 heroInput = HeroGUI.Done;
+                ClearPlayerUIText();
                 break;
 
             case (HeroGUI.Done):
@@ -285,7 +286,7 @@ public class BattleStateMachine : MonoBehaviour
                 }
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.PointerEnter;
-                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, playerChooseUIText, (tempHero.name + " will use " + physicalAttack.attackName).ToString()); });
+                entry.callback.AddListener((data) => { OnPointerAttack((PointerEventData)data, (tempHero.name + " will use " + physicalAttack.attackName).ToString()); });
                 trigger.triggers.Add(entry);
 
                 AttackButton ATB = tempAttackButton.GetComponent<AttackButton>();
@@ -318,7 +319,7 @@ public class BattleStateMachine : MonoBehaviour
                 }
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.PointerEnter;
-                entry.callback.AddListener((data) => { OnPointerEnterDel((PointerEventData)data, playerChooseUIText, (tempHero.name + " will use " + magicAttack.attackName).ToString()); });
+                entry.callback.AddListener((data) => { OnPointerAttack((PointerEventData)data, (tempHero.name + " will use " + magicAttack.attackName).ToString()); });
                 trigger.triggers.Add(entry);
 
                 AttackButton ATB = tempMagicButton.GetComponent<AttackButton>();
@@ -418,13 +419,10 @@ public class BattleStateMachine : MonoBehaviour
         attackPanel.SetActive(false);
     }
 
-    private void SetButtonText(string msg)
+    
+    public void SetPlayerUIText(string msg)
     {
         playerUIText.text = msg;
-    }
-    private void SetPlayerUIText(Text txt, string msg)
-    {
-        txt.text = msg;
     }
 
     private void ClearPlayerUIText()
@@ -433,9 +431,9 @@ public class BattleStateMachine : MonoBehaviour
         playerChooseUIText.text = "";
     }
 
-    private void SetAttackUIText(string msg)
+    public void SetAttackUIText(string msg)
     {
-        attackUIText.text = msg;
+        playerChooseUIText.text = msg;
     }
 
     private void ClearAttackUIText()
@@ -457,9 +455,9 @@ public class BattleStateMachine : MonoBehaviour
         }
     }
 
-    public void OnPointerEnterDel(PointerEventData eventData, Text txt, string msg)
+    public void OnPointerEnterDel(PointerEventData eventData, string msg)
     {
-        SetPlayerUIText(txt, msg);
+        SetPlayerUIText(msg);
     }
 
     public void OnPointerAttack(PointerEventData eventData, string msg)
