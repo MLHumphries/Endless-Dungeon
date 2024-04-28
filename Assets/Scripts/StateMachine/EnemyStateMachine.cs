@@ -22,7 +22,7 @@ public class EnemyStateMachine : MonoBehaviour
     public TurnState currentState;
 
     private float cur_Cooldown = 0f;
-    public float max_Cooldown = 10f;
+    public float max_Cooldown = 8f;
 
     private Vector3 startPosition;
 
@@ -153,12 +153,12 @@ public class EnemyStateMachine : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
         //DoDamage
         float damage = 0;
         damage = DoDamage();
         BSM.attackUIText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + damage + " damage.";
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
         //animate back to start pos
         Vector3 firstPosition = startPosition;
         while (MoveTowardsEnemy(startPosition))
