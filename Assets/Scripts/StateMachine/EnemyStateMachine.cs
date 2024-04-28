@@ -154,16 +154,17 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        //doDamage
-        DoDamage();
+        //DoDamage
+        float damage = 0;
+        damage = DoDamage();
+        BSM.attackUIText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + damage + " damage.";
+        yield return new WaitForSeconds(0.5f);
         //animate back to start pos
         Vector3 firstPosition = startPosition;
         while (MoveTowardsEnemy(startPosition))
         {
             yield return null;
         }
-
-        //enemyAttackText.text = "";
 
         BSM.PerformList.RemoveAt(0);
 
@@ -183,7 +184,7 @@ public class EnemyStateMachine : MonoBehaviour
         return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
     }
 
-    void DoDamage()
+    float DoDamage()
     {
         HeroStateMachine HSM = HeroToAttack.GetComponent<HeroStateMachine>();
         float calcDamage;
@@ -198,8 +199,8 @@ public class EnemyStateMachine : MonoBehaviour
             calcDamage = enemy.strength + BSM.PerformList[0].chosenAttack.attackDamage;
         }
         HeroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
-        //enemyAttackText.text = enemy.name + " has chosen " + BSM.PerformList[0].chosenAttack.attackName.ToString() + " and does " + calcDamage + " damage";
-        //StartCoroutine(TextDelay());
+        
+        return (calcDamage);
     }
     public void TakeDamage(float getDamageAmount)
     {

@@ -132,6 +132,85 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1923347372657312760}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &169235406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 169235407}
+  - component: {fileID: 169235409}
+  - component: {fileID: 169235408}
+  m_Layer: 5
+  m_Name: 'PlayerChooseUIText '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &169235407
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169235406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1417418615}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.3656168, y: 0.23821309}
+  m_AnchorMax: {x: 0.6293672, y: 0.30221587}
+  m_AnchoredPosition: {x: 0, y: -0.9000244}
+  m_SizeDelta: {x: -1.4400024, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &169235408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169235406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.9858491, b: 0.9858491, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &169235409
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169235406}
+  m_CullTransparentMesh: 0
 --- !u!114 &197159508 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1923347372493760940, guid: f08b2baa97e797e4fb5448ec5f30b831,
@@ -266,7 +345,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1923347372657312760}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &304555621
+--- !u!114 &304555617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,31 +363,31 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 436735661}
-          m_MethodName: SetPlayerUIText
+          m_MethodName: SendMessage
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Open Attack Menu
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - eventID: 1
+  - eventID: 8
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 436735661}
-          m_MethodName: ClearPlayerUIText
+        - m_Target: {fileID: 436735660}
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgumentAssemblyTypeName: 
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Open Attack Menu
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
@@ -549,8 +628,10 @@ MonoBehaviour:
     type: 3}
   magicAttackButton: {fileID: 3377577521836942944, guid: 02452f8b36c256845b052a9282d1b80e,
     type: 3}
+  atkBtns: []
   HeroesToManage: []
   playerUIText: {fileID: 383922124}
+  playerChooseUIText: {fileID: 169235408}
   attackUIText: {fileID: 197159508}
 --- !u!4 &436735662
 Transform:
@@ -645,7 +726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037298249787104, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4457225060211468, guid: 2734c50b899b1034e8d6bebe19382128, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3599,42 +3680,42 @@ PrefabInstance:
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.5
+      value: -0.9000244
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.2671124
+      value: 0.23821309
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.3675
+      value: 0.36125
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.4699707
+      value: -1.6000061
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0.55999756
+      value: -0.44000244
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.33777845
+      value: 0.30221587
       objectReference: {fileID: 0}
     - target: {fileID: 1923347372273413171, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.10625
+      value: 0.09875
       objectReference: {fileID: 0}
     - target: {fileID: 1923347371735322810, guid: f08b2baa97e797e4fb5448ec5f30b831,
         type: 3}
@@ -3700,6 +3781,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AttackUIText
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923347372493760939, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.2999878
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923347372493760939, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.870617
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923347372493760939, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -2.0999756
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923347372493760939, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923347372493760939, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923347372493760939, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923347372493760939, guid: f08b2baa97e797e4fb5448ec5f30b831,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.111250006
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1488929312821886765, guid: f08b2baa97e797e4fb5448ec5f30b831, type: 3}
