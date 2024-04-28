@@ -227,6 +227,7 @@ public class HeroStateMachine : MonoBehaviour
         //HandleTurns heroAttack = new HandleTurns();
         float calc_damage;
 
+        //Do magic attack
         if (BSM.PerformList[0].chosenAttack.attackCost > 0)
         {
             if (hero.curMP >= BSM.PerformList[0].chosenAttack.attackCost)
@@ -242,6 +243,7 @@ public class HeroStateMachine : MonoBehaviour
             }
             
         }
+        //Do physical attack
         else
         {
             calc_damage = hero.strength + BSM.PerformList[0].chosenAttack.attackDamage;

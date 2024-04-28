@@ -184,6 +184,7 @@ public class BattleStateMachine : MonoBehaviour
                 if(HeroesToManage.Count > 0)
                 {
                     HeroesToManage[0].transform.Find("Selector").gameObject.SetActive(true);
+                    
                     heroChoice = new HandleTurns();
 
                     attackPanel.SetActive(true);
