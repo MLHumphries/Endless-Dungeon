@@ -341,6 +341,11 @@ PrefabInstance:
       propertyPath: enemy.maxHP
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 23629836143200100, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c94a542bfe6608447b9eb2c4a791339c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
 --- !u!224 &235049162 stripped
@@ -2228,6 +2233,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23629836143200100, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c94a542bfe6608447b9eb2c4a791339c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
 --- !u!114 &1779638634 stripped
@@ -4331,6 +4341,11 @@ PrefabInstance:
       propertyPath: maxCooldown
       value: 75
       objectReference: {fileID: 0}
+    - target: {fileID: 2661515651653855094, guid: 4054ef0454ad0d94ba5cc622b1ca90ca,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c94a542bfe6608447b9eb2c4a791339c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4054ef0454ad0d94ba5cc622b1ca90ca, type: 3}
 --- !u!1001 &3586890921716101149
@@ -4425,5 +4440,10 @@ PrefabInstance:
       propertyPath: hero.speed
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 3572267856711535414, guid: 3e89bbf56353fa44eb47afd33a7252a9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c94a542bfe6608447b9eb2c4a791339c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e89bbf56353fa44eb47afd33a7252a9, type: 3}
