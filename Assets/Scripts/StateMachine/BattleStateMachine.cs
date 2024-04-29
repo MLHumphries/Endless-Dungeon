@@ -286,7 +286,7 @@ public class BattleStateMachine : MonoBehaviour
                 }
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.PointerEnter;
-                entry.callback.AddListener((data) => { OnPointerAttack((PointerEventData)data, (tempHero.name + " will use " + physicalAttack.attackName).ToString()); });
+                entry.callback.AddListener((data) => { OnPointerAttack((PointerEventData)data, (tempHero.name + " will use " + physicalAttack.attackName).ToString() + " (Damage: " + (physicalAttack.attackDamage + tempHero.hero.strength) + ")"); });
                 trigger.triggers.Add(entry);
 
                 AttackButton ATB = tempAttackButton.GetComponent<AttackButton>();
@@ -319,7 +319,7 @@ public class BattleStateMachine : MonoBehaviour
                 }
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.PointerEnter;
-                entry.callback.AddListener((data) => { OnPointerAttack((PointerEventData)data, (tempHero.name + " will use " + magicAttack.attackName).ToString()); });
+                entry.callback.AddListener((data) => { OnPointerAttack((PointerEventData)data, (tempHero.name + " will use " + magicAttack.attackName).ToString() + " (Damage: " + (magicAttack.attackDamage + tempHero.hero.intellect) + ")" + " (Cost: " + (magicAttack.attackCost) + ")"); });
                 trigger.triggers.Add(entry);
 
                 AttackButton ATB = tempMagicButton.GetComponent<AttackButton>();
