@@ -3551,6 +3551,11 @@ PrefabInstance:
       propertyPath: HeroPanelStats
       value: 
       objectReference: {fileID: 2070511246}
+    - target: {fileID: 2679226532476102190, guid: 4054ef0454ad0d94ba5cc622b1ca90ca,
+        type: 3}
+      propertyPath: maxCooldown
+      value: 75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4054ef0454ad0d94ba5cc622b1ca90ca, type: 3}
 --- !u!1001 &3586890921716101149
@@ -3635,5 +3640,15 @@ PrefabInstance:
       propertyPath: HeroPanelStats
       value: 
       objectReference: {fileID: 643135853}
+    - target: {fileID: 3481883412915292782, guid: 3e89bbf56353fa44eb47afd33a7252a9,
+        type: 3}
+      propertyPath: maxCooldown
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481883412915292782, guid: 3e89bbf56353fa44eb47afd33a7252a9,
+        type: 3}
+      propertyPath: hero.speed
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e89bbf56353fa44eb47afd33a7252a9, type: 3}

@@ -31,9 +31,10 @@ public class HeroStateMachine : MonoBehaviour
     }
 
     public TurnState currentState;
-
+    [SerializeField]
     private float curCooldown = 0f;
-    private float maxCooldown = 8f;
+    [SerializeField]
+    private float maxCooldown = 15f;
     private Image ProgressBar;
 
     private bool alive = true;
@@ -53,11 +54,11 @@ public class HeroStateMachine : MonoBehaviour
         CreateHeroPanel();
 
         startPosition = transform.position;
-        curCooldown = Random.Range(0f, 2.5f);
+        curCooldown = Random.Range(0f, 0.5f);
         selector.SetActive(false);
         BSM = GameObject.Find("GameManager").GetComponent<BattleStateMachine>();
         currentState = TurnState.Processing;
-        maxCooldown = maxCooldown - (hero.speed / 100f);
+        ;
     }
 	
 	
@@ -137,7 +138,7 @@ public class HeroStateMachine : MonoBehaviour
 
     void UpdateProgressBar()
     {
-        curCooldown = curCooldown + Time.deltaTime;
+        curCooldown = (curCooldown + (hero.speed / 100f)) + Time.deltaTime;
         float calcCooldown = curCooldown / maxCooldown;
         ProgressBar.transform.localScale = new Vector3(Mathf.Clamp(calcCooldown, 0, 1), ProgressBar.transform.localScale.y, ProgressBar.transform.localScale.z);
 
