@@ -231,8 +231,8 @@ public class HeroStateMachine : MonoBehaviour
             {
                 hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
                 calc_damage = hero.intellect + BSM.PerformList[0].chosenAttack.attackDamage;
-                print(BSM.PerformList[0].chosenAttack.attackName);
-                print("Intellect: " + hero.intellect + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+                //print(BSM.PerformList[0].chosenAttack.attackName);
+                //print("Intellect: " + hero.intellect + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
             }
             else
             {
@@ -244,8 +244,8 @@ public class HeroStateMachine : MonoBehaviour
         else
         {
             calc_damage = hero.strength + BSM.PerformList[0].chosenAttack.attackDamage;
-            print(BSM.PerformList[0].chosenAttack.attackName);
-            print("Strength: " + hero.strength + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+            //print(BSM.PerformList[0].chosenAttack.attackName);
+            //print("Strength: " + hero.strength + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
         }
 
         if(enemyToAttack != this.gameObject)

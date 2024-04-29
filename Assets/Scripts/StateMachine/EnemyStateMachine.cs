@@ -42,7 +42,6 @@ public class EnemyStateMachine : MonoBehaviour
         selector.SetActive(false);
         BSM = GameObject.Find("GameManager").GetComponent<BattleStateMachine>();
         healthBar = GetComponentInChildren<Slider>();
-        print(healthBar.value);
         UpdateEnemyHealth(enemy.curHP, enemy.maxHP);
         startPosition = transform.position;
     }
@@ -218,7 +217,6 @@ public class EnemyStateMachine : MonoBehaviour
             enemy.curHP = 0;
             currentState = TurnState.Dead;
         }
-        //UpdateEnemyHealth();
     }
 
     private IEnumerator TextDelay()
@@ -229,6 +227,6 @@ public class EnemyStateMachine : MonoBehaviour
     void UpdateEnemyHealth(float curHealth, float maxHealth)
     {
         healthBar.value = curHealth / maxHealth;
-        print(healthBar.value);
+        //print(healthBar.value);
     }
 }
