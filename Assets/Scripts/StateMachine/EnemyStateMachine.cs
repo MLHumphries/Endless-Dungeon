@@ -8,7 +8,9 @@ public class EnemyStateMachine : MonoBehaviour
     private BattleStateMachine BSM;
     public BaseEnemy enemy;
     public GameObject selector;
-    public Text enemyHealthUI;
+    [SerializeField]
+    private Slider healthBar;
+    
 
     public enum TurnState
     {
@@ -39,12 +41,16 @@ public class EnemyStateMachine : MonoBehaviour
         currentState = TurnState.Processing;
         selector.SetActive(false);
         BSM = GameObject.Find("GameManager").GetComponent<BattleStateMachine>();
+        healthBar = GetComponentInChildren<Slider>();
+        print(healthBar.value);
+        UpdateEnemyHealth(enemy.curHP, enemy.maxHP);
         startPosition = transform.position;
     }
 	
 	
 	void Update ()
     {
+        
         //Debug.Log(currentState);
         switch (currentState)
         {
@@ -205,6 +211,7 @@ public class EnemyStateMachine : MonoBehaviour
     public void TakeDamage(float getDamageAmount)
     {
         enemy.curHP -= getDamageAmount;
+        UpdateEnemyHealth(enemy.curHP, enemy.maxHP);
 
         if(enemy.curHP <= 0)
         {
@@ -219,8 +226,9 @@ public class EnemyStateMachine : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
     }
 
-    //void UpdateEnemyHealth()
-    //{
-    //    enemyHealthUI.text = "HP: " + enemy.curHP;
-    //}
+    void UpdateEnemyHealth(float curHealth, float maxHealth)
+    {
+        healthBar.value = curHealth / maxHealth;
+        print(healthBar.value);
+    }
 }
