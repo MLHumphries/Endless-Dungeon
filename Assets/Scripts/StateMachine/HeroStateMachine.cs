@@ -227,18 +227,28 @@ public class HeroStateMachine : MonoBehaviour
         //Do magic attack
         if (BSM.PerformList[0].chosenAttack.attackCost > 0)
         {
-            if (hero.curMP >= BSM.PerformList[0].chosenAttack.attackCost)
+            if(BSM.PerformList[0].chosenAttack.effectChance > 0)
             {
-                hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
-                calc_damage = hero.intellect + BSM.PerformList[0].chosenAttack.attackDamage;
-                //print(BSM.PerformList[0].chosenAttack.attackName);
-                //print("Intellect: " + hero.intellect + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+                //do chance calc
+
+                //if hit, do damage over time
+                calc_damage = 1f;
             }
             else
             {
-                calc_damage = 0;
+                if (hero.curMP >= BSM.PerformList[0].chosenAttack.attackCost)
+                {
+                    hero.curMP = hero.curMP - BSM.PerformList[0].chosenAttack.attackCost;
+                    calc_damage = hero.intellect + BSM.PerformList[0].chosenAttack.attackDamage;
+                    //print(BSM.PerformList[0].chosenAttack.attackName);
+                    //print("Intellect: " + hero.intellect + " " + BSM.PerformList[0].chosenAttack.attackDamage + " = " + calc_damage);
+                }
+                else
+                {
+                    calc_damage = 0;
+                }
             }
-            
+         
         }
         //Do physical attack
         else
@@ -254,6 +264,12 @@ public class HeroStateMachine : MonoBehaviour
         }
         UpdateHeroPanel();
         return(calc_damage);
+    }
+
+    private void Chance(float chance)
+    {
+        bool isEffected = false;
+
     }
 
 

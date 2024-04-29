@@ -10,6 +10,8 @@ public class PoisonSpell : BaseAttack
         //attackDescription = "Basic spell spell.";
         attackDamage = 10f;
         attackCost = 4f;
+        effectChance = 100f;
+        effectDuration = 8f;
     }
 
 }
