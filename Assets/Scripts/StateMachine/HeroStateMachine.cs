@@ -16,7 +16,7 @@ public class HeroStateMachine : MonoBehaviour
     public bool isDefending = false;
 
     private Vector3 startPosition;
-    private float animSpeed = 10f;
+    private float animSpeed = 6.5f;
 
     public Text playerUIText;
 
@@ -31,9 +31,10 @@ public class HeroStateMachine : MonoBehaviour
     }
 
     public TurnState currentState;
-
+    [SerializeField]
     private float curCooldown = 0f;
-    private float maxCooldown = 4f;
+    [SerializeField]
+    private float maxCooldown = 15f;
     private Image ProgressBar;
 
     private bool alive = true;
@@ -53,11 +54,11 @@ public class HeroStateMachine : MonoBehaviour
         CreateHeroPanel();
 
         startPosition = transform.position;
-        curCooldown = Random.Range(0f, 2.5f);
+        curCooldown = Random.Range(0f, 0.5f);
         selector.SetActive(false);
         BSM = GameObject.Find("GameManager").GetComponent<BattleStateMachine>();
         currentState = TurnState.Processing;
-        maxCooldown = maxCooldown - (hero.speed / 100f);
+        ;
     }
 	
 	
@@ -137,7 +138,7 @@ public class HeroStateMachine : MonoBehaviour
 
     void UpdateProgressBar()
     {
-        curCooldown = curCooldown + Time.deltaTime;
+        curCooldown = (curCooldown + (hero.speed / 100f)) + Time.deltaTime;
         float calcCooldown = curCooldown / maxCooldown;
         ProgressBar.transform.localScale = new Vector3(Mathf.Clamp(calcCooldown, 0, 1), ProgressBar.transform.localScale.y, ProgressBar.transform.localScale.z);
 
@@ -161,7 +162,7 @@ public class HeroStateMachine : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
         float damage = 0;
         //do damage
         if (!isDefending)
@@ -173,7 +174,7 @@ public class HeroStateMachine : MonoBehaviour
         {
             BSM.attackUIText.text = heroName.heroName.text + " is defending.";
         }
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
 
 
         Vector3 firstPosition = startPosition;
@@ -198,10 +199,6 @@ public class HeroStateMachine : MonoBehaviour
         actionStarted = false;
         //reset EnemyState
         
-    }
-    private IEnumerator TextDelay()
-    {
-        yield return new WaitForSeconds(0.75f);
     }
 
     private bool MoveTowardsEnemy(Vector3 target)
