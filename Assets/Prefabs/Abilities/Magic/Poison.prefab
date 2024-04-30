@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackName: Poison
-  attackDamage: 10
+  attackDamage: 5
   attackCost: 4
+  effectChance: 0.2
+  effectDuration: 8

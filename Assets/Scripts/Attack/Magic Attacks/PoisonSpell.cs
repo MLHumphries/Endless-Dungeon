@@ -10,7 +10,7 @@ public class PoisonSpell : BaseAttack
         //attackDescription = "Basic spell spell.";
         attackDamage = 10f;
         attackCost = 4f;
-        effectChance = 100f;
+        effectChance = Mathf.Clamp(effectChance, 0.0f, 1.0f);
         effectDuration = 8f;
     }
 

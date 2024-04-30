@@ -230,7 +230,7 @@ public class HeroStateMachine : MonoBehaviour
             if(BSM.PerformList[0].chosenAttack.effectChance > 0)
             {
                 //do chance calc
-
+                Chance(BSM.PerformList[0].chosenAttack.effectChance);
                 //if hit, do damage over time
                 calc_damage = 1f;
             }
@@ -266,9 +266,21 @@ public class HeroStateMachine : MonoBehaviour
         return(calc_damage);
     }
 
-    private void Chance(float chance)
+    private bool Chance(float critChance)
     {
         bool isEffected = false;
+        float val = Random.value;
+        print(val);
+        if(val < critChance)
+        {
+            print("Is poisoned");
+            isEffected = true;
+        }
+        else
+        {
+            isEffected = false;
+        }
+        return isEffected;
 
     }
 

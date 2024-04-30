@@ -2149,6 +2149,11 @@ PrefabInstance:
       propertyPath: enemy.maxHP
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 23629836143200100, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c94a542bfe6608447b9eb2c4a791339c, type: 2}
     - target: {fileID: 1279332182547846, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2233,11 +2238,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 23629836143200100, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c94a542bfe6608447b9eb2c4a791339c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45aaa13f62aeb40419a5f2e2cdae8093, type: 3}
 --- !u!114 &1779638634 stripped
@@ -4341,6 +4341,12 @@ PrefabInstance:
       propertyPath: maxCooldown
       value: 75
       objectReference: {fileID: 0}
+    - target: {fileID: 2679226532476102190, guid: 4054ef0454ad0d94ba5cc622b1ca90ca,
+        type: 3}
+      propertyPath: hero.magicAttacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 9046573769622345808, guid: 9286fc6f4fb25bc458fa5863d433f1cd,
+        type: 3}
     - target: {fileID: 2661515651653855094, guid: 4054ef0454ad0d94ba5cc622b1ca90ca,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
