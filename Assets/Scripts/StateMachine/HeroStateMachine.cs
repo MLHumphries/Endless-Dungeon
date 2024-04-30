@@ -230,9 +230,19 @@ public class HeroStateMachine : MonoBehaviour
             if(BSM.PerformList[0].chosenAttack.effectChance > 0)
             {
                 //do chance calc
-                Chance(BSM.PerformList[0].chosenAttack.effectChance);
-                //if hit, do damage over time
-                calc_damage = 1f;
+                if(Chance(BSM.PerformList[0].chosenAttack.effectChance))
+                {
+                    calc_damage = 1f;
+                    //if hit, do damage over time
+                    enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamageOverTime(calc_damage, BSM.PerformList[0].chosenAttack.effectDuration);
+                }
+                else
+                {
+                    calc_damage = hero.intellect + BSM.PerformList[0].chosenAttack.attackDamage;
+                }
+                
+
+
             }
             else
             {
@@ -270,7 +280,8 @@ public class HeroStateMachine : MonoBehaviour
     {
         bool isEffected = false;
         float val = Random.value;
-        print(val);
+        critChance = critChance + (hero.luck / 100f);
+        
         if(val < critChance)
         {
             print("Is poisoned");

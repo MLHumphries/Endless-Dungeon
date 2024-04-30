@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseClass
+public class BaseClass 
 {
     public string name;
 
