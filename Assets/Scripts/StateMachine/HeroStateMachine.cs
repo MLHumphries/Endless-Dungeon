@@ -229,20 +229,17 @@ public class HeroStateMachine : MonoBehaviour
         {
             if(BSM.PerformList[0].chosenAttack.effectChance > 0)
             {
-                //do chance calc
+                //do chance calc, if hit do damage over time, else do base spell damage
                 if(Chance(BSM.PerformList[0].chosenAttack.effectChance))
                 {
                     calc_damage = 1f;
                     //if hit, do damage over time
-                    enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamageOverTime(calc_damage, BSM.PerformList[0].chosenAttack.effectDuration);
+                    StartCoroutine(enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamageOverTime(calc_damage, BSM.PerformList[0].chosenAttack.effectDuration));
                 }
                 else
                 {
                     calc_damage = hero.intellect + BSM.PerformList[0].chosenAttack.attackDamage;
                 }
-                
-
-
             }
             else
             {

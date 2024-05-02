@@ -22,7 +22,8 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
     public TurnState currentState;
-    
+    [SerializeField]
+    private bool isEffected;
 
     private float cur_Cooldown = 0f;
     public float max_Cooldown = 8f;
@@ -34,14 +35,12 @@ public class EnemyStateMachine : MonoBehaviour
     public GameObject HeroToAttack;
 
     private float animSpeed = 10f;
-
-    public bool isPoisoned;
+    
     
 
     void Start ()
     {
         currentState = TurnState.Processing;
-        enemy.StatusType = BaseEnemy.Status.NoStatus;
         selector.SetActive(false);
         BSM = GameObject.Find("GameManager").GetComponent<BattleStateMachine>();
         healthBar = GetComponentInChildren<Slider>();
@@ -52,10 +51,6 @@ public class EnemyStateMachine : MonoBehaviour
 	
 	void Update ()
     {
-        if(isPoisoned == true)
-        {
-            StartCoroutine(TakeDamageOverTime(1f, 8f));
-        }
         //Debug.Log(currentState);
         switch (currentState)
         {
@@ -221,9 +216,10 @@ public class EnemyStateMachine : MonoBehaviour
 
     public IEnumerator TakeDamageOverTime(float damageAmount, float duration)
     {
-        //enemy.StatusType = BaseEnemy.Status.Poison;
-        for(int i = 0; i <= duration; i++)
+        isEffected = true;
+        for (int i = 0; i <= duration; i++)
         {
+            yield return new WaitForSeconds(2.5f);
             enemy.curHP -= damageAmount;
             print(enemy.curHP);
             UpdateEnemyHealth(enemy.curHP, enemy.maxHP);
@@ -233,13 +229,8 @@ public class EnemyStateMachine : MonoBehaviour
                 
                 currentState = TurnState.Dead;
             }
-            print(i);
-            
-            //duration--;
         }
-        isPoisoned = false;
-        print("Done");
-        yield return new WaitForSecondsRealtime(1f);
+        isEffected = false;
     }
 
     void UpdateEnemyHealth(float curHealth, float maxHealth)

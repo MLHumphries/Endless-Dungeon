@@ -46,5 +46,5 @@ MonoBehaviour:
   attackName: Poison
   attackDamage: 5
   attackCost: 4
-  effectChance: 1
+  effectChance: 0.8
   effectDuration: 8
