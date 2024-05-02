@@ -150,7 +150,6 @@ public class BattleStateMachine : MonoBehaviour
             case (PerformAction.CheckAlive):
                 if(HeroInGame.Count < 1)
                 {
-                    print("Lose");
                     battleState = PerformAction.Lose;
                 }
                 else if(EnemyInGame.Count < 1)

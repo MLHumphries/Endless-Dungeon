@@ -341,6 +341,11 @@ PrefabInstance:
       propertyPath: enemy.maxHP
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
+        type: 3}
+      propertyPath: enemy.strength
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 23629836143200100, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2152,6 +2157,11 @@ PrefabInstance:
     - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
         type: 3}
       propertyPath: isPoisoned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114270216860276012, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
+        type: 3}
+      propertyPath: enemy.defense
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 23629836143200100, guid: 45aaa13f62aeb40419a5f2e2cdae8093,
