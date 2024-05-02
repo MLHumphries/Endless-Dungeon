@@ -150,6 +150,7 @@ public class BattleStateMachine : MonoBehaviour
             case (PerformAction.CheckAlive):
                 if(HeroInGame.Count < 1)
                 {
+                    print("Lose");
                     battleState = PerformAction.Lose;
                 }
                 else if(EnemyInGame.Count < 1)
@@ -173,6 +174,10 @@ public class BattleStateMachine : MonoBehaviour
                 break;
             case (PerformAction.Lose):
                 winGame = false;
+                for (int i = 0; i < HeroInGame.Count; i++)
+                {
+                    EnemyInGame[i].GetComponent<EnemyStateMachine>().currentState = EnemyStateMachine.TurnState.Waiting;
+                }
                 StartCoroutine(EndGame());
                 break;
 

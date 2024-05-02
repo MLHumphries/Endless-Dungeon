@@ -20,16 +20,6 @@ public class BaseEnemy : BaseClass
         VeryRare
     }
 
-    public enum Status
-    {
-        NoStatus,
-        Poison,
-        Burn
-    }
-
     public Type EnemyType;
-    public Rarity rarity;
-    public Status StatusType;
-
-    
+    public Rarity rarity; 
 }
